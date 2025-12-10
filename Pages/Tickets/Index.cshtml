@@ -1,0 +1,195 @@
+@page
+@model MabatSupportSystem.Pages.Tickets.IndexModel
+@{
+    ViewData["Title"] = "My Support Tickets";
+}
+
+<div class="container mt-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <div>
+                    <h1 class="fw-bold mb-2">
+                        <i class="bi bi-inbox-fill text-primary"></i> My Support Tickets
+                    </h1>
+                    <p class="text-muted mb-0">Track and manage all your support requests</p>
+                </div>
+                <a asp-page="./Create" class="btn btn-primary btn-lg shadow-sm">
+                    <i class="bi bi-plus-circle-fill me-2"></i>Create New Ticket
+                </a>
+            </div>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show shadow-sm border-0" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <strong>Success!</strong> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Filter and Search Card -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-white border-bottom">
+            <h5 class="mb-0 fw-bold"><i class="bi bi-funnel me-2"></i>Filter & Search</h5>
+        </div>
+        <div class="card-body">
+            <form method="get">
+                <div class="row g-3 align-items-end">
+                    <div class="col-lg-3 col-md-6">
+                        <label class="form-label fw-semibold">
+                            <i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i>Status
+                        </label>
+                        <select name="statusFilter" class="form-select shadow-sm">
+                            <option value="">All Statuses</option>
+                            <option value="0" selected="@(Model.StatusFilter == 0)">Open</option>
+                            <option value="1" selected="@(Model.StatusFilter == 1)">In Progress</option>
+                            <option value="2" selected="@(Model.StatusFilter == 2)">Resolved</option>
+                            <option value="3" selected="@(Model.StatusFilter == 3)">Closed</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <label class="form-label fw-semibold">
+                            <i class="bi bi-flag-fill me-1" style="font-size: 0.5rem;"></i>Priority
+                        </label>
+                        <select name="priorityFilter" class="form-select shadow-sm">
+                            <option value="">All Priorities</option>
+                            <option value="0" selected="@(Model.PriorityFilter == 0)">Low</option>
+                            <option value="1" selected="@(Model.PriorityFilter == 1)">Medium</option>
+                            <option value="2" selected="@(Model.PriorityFilter == 2)">High</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4 col-md-8">
+                        <label class="form-label fw-semibold">
+                            <i class="bi bi-search me-1"></i>Search
+                        </label>
+                        <input type="text" name="searchString" value="@Model.SearchString" 
+                               class="form-control shadow-sm" placeholder="Title or booking reference..." />
+                    </div>
+                    <div class="col-lg-2 col-md-4">
+                        <button type="submit" class="btn btn-primary w-100 shadow-sm">
+                            <i class="bi bi-search"></i> Apply
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tickets List -->
+    @if (Model.Tickets.Any())
+    {
+        <div class="row g-3">
+            @foreach (var ticket in Model.Tickets)
+            {
+                var borderClass = ticket.Priority == MabatSupportSystem.Models.TicketPriority.High ? "border-danger border-2" : "";
+                
+                <div class="col-12">
+                    <div class="card shadow-sm border-0 @borderClass h-100 hover-lift">
+                        <div class="card-body p-4">
+                            <div class="row align-items-start">
+                                <!-- Left side - Content -->
+                                <div class="col-md-8">
+                                    <div class="mb-2">
+                                        <span class="badge bg-light text-dark me-2">#@ticket.Id</span>
+                                        @switch (ticket.Status)
+                                        {
+                                            case MabatSupportSystem.Models.TicketStatus.Open:
+                                                <span class="badge bg-info"><i class="bi bi-circle-fill me-1"></i>Open</span>
+                                                break;
+                                            case MabatSupportSystem.Models.TicketStatus.InProgress:
+                                                <span class="badge bg-warning"><i class="bi bi-hourglass-split me-1"></i>In Progress</span>
+                                                break;
+                                            case MabatSupportSystem.Models.TicketStatus.Resolved:
+                                                <span class="badge bg-success"><i class="bi bi-check-circle-fill me-1"></i>Resolved</span>
+                                                break;
+                                            case MabatSupportSystem.Models.TicketStatus.Closed:
+                                                <span class="badge bg-secondary"><i class="bi bi-lock-fill me-1"></i>Closed</span>
+                                                break;
+                                        }
+                                        @switch (ticket.Priority)
+                                        {
+                                            case MabatSupportSystem.Models.TicketPriority.Low:
+                                                <span class="badge bg-secondary">Low Priority</span>
+                                                break;
+                                            case MabatSupportSystem.Models.TicketPriority.Medium:
+                                                <span class="badge bg-primary">Medium Priority</span>
+                                                break;
+                                            case MabatSupportSystem.Models.TicketPriority.High:
+                                                <span class="badge bg-danger"><i class="bi bi-exclamation-triangle-fill me-1"></i>High Priority</span>
+                                                break;
+                                        }
+                                    </div>
+                                    
+                                    <h5 class="fw-bold mb-2">
+                                        <a asp-page="./Details" asp-route-id="@ticket.Id" class="text-decoration-none text-dark stretched-link">
+                                            @ticket.Title
+                                        </a>
+                                    </h5>
+                                    
+                                    <p class="text-muted mb-3 small">
+                                        @(ticket.Description.Length > 120 ? ticket.Description.Substring(0, 120) + "..." : ticket.Description)
+                                    </p>
+                                    
+                                    <div class="d-flex flex-wrap gap-3 small text-muted">
+                                        <span><i class="bi bi-folder text-primary me-1"></i>@ticket.Category?.Name</span>
+                                        <span><i class="bi bi-person text-primary me-1"></i>@ticket.UserName</span>
+                                        @if (!string.IsNullOrEmpty(ticket.BookingReferenceId))
+                                        {
+                                            <span><i class="bi bi-bookmark-fill text-warning me-1"></i>@ticket.BookingReferenceId</span>
+                                        }
+                                        <span><i class="bi bi-clock text-primary me-1"></i>@ticket.CreatedDate.ToLocalTime().ToString("MMM dd, yyyy · HH:mm")</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Right side - Action -->
+                                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                    <a asp-page="./Details" asp-route-id="@ticket.Id" class="btn btn-outline-primary stretched-link" style="position: relative; z-index: 10;">
+                                        <i class="bi bi-eye me-1"></i>View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-sm border-0 text-center py-5">
+            <div class="card-body">
+                <div class="mb-4">
+                    <i class="bi bi-inbox text-muted" style="font-size: 5rem; opacity: 0.3;"></i>
+                </div>
+                <h3 class="fw-bold mb-3">No Tickets Found</h3>
+                <p class="text-muted mb-4">
+                    @if (!string.IsNullOrEmpty(Model.SearchString) || Model.StatusFilter.HasValue || Model.PriorityFilter.HasValue)
+                    {
+                        <span>No tickets match your current filters. Try adjusting your search criteria.</span>
+                    }
+                    else
+                    {
+                        <span>You haven't created any support tickets yet. Get started by creating your first ticket!</span>
+                    }
+                </p>
+                <a asp-page="./Create" class="btn btn-primary btn-lg shadow-sm">
+                    <i class="bi bi-plus-circle-fill me-2"></i>Create Your First Ticket
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+.hover-lift {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.15) !important;
+}
+</style>

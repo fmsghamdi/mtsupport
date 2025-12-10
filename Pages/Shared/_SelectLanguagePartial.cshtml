@@ -1,0 +1,21 @@
+@using System.Globalization
+@using Microsoft.AspNetCore.Localization
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var currentCulture = requestCulture?.RequestCulture.UICulture.TwoLetterISOLanguageName ?? "en";
+    var returnUrl = Context.Request.Path;
+}
+
+<div class="btn-group" role="group" aria-label="Language Selector">
+    <a href="/SetLanguage?culture=en-US&returnUrl=@returnUrl" 
+       class="btn btn-sm @(currentCulture == "en" ? "btn-light" : "btn-outline-light")"
+       title="Switch to English">
+        <i class="bi bi-globe me-1"></i>English
+    </a>
+    <a href="/SetLanguage?culture=ar-SA&returnUrl=@returnUrl" 
+       class="btn btn-sm @(currentCulture == "ar" ? "btn-light" : "btn-outline-light")"
+       title="التبديل إلى العربية">
+        <i class="bi bi-translate me-1"></i>عربي
+    </a>
+</div>

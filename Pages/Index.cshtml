@@ -1,0 +1,154 @@
+﻿@page
+@model IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Mabat Support Center";
+}
+
+<!-- Hero Section -->
+<div class="container">
+    <div class="row align-items-center py-5">
+        <div class="col-lg-6">
+            <div class="pe-lg-5">
+                <h1 class="display-3 fw-bold text-primary mb-3">
+                    <i class="bi bi-headset"></i> @Localizer["WelcomeTitle"]
+                </h1>
+                <p class="lead text-muted mb-4">
+                    @Localizer["WelcomeSubtitle"]
+                </p>
+                <div class="d-grid gap-3 d-sm-flex">
+                    <a asp-page="/Tickets/Create" class="btn btn-primary btn-lg px-5 shadow-sm">
+                        <i class="bi bi-plus-circle-fill me-2"></i>@Localizer["CreateTicketBtn"]
+                    </a>
+                    <a asp-page="/Tickets/Index" class="btn btn-outline-primary btn-lg px-5">
+                        <i class="bi bi-inbox-fill me-2"></i>@Localizer["MyTicketsBtn"]
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 d-none d-lg-block">
+            <div class="text-center">
+                <i class="bi bi-people-fill text-primary" style="font-size: 15rem; opacity: 0.1;"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="bg-light py-5 mt-5">
+    <div class="container">
+        <div class="row text-center mb-4">
+            <div class="col">
+                <h2 class="fw-bold">@Localizer["Home_HelpTitle"]</h2>
+                <p class="text-muted">@Localizer["Home_HelpSubtitle"]</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <!-- Feature 1 -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0 text-center">
+                    <div class="card-body p-4">
+                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                            <i class="bi bi-clock-history text-primary" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">@Localizer["Home_Feature1_Title"]</h5>
+                        <p class="card-text text-muted">
+                            @Localizer["Home_Feature1_Text"]
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0 text-center">
+                    <div class="card-body p-4">
+                        <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                            <i class="bi bi-key-fill text-success" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">@Localizer["Home_Feature2_Title"]</h5>
+                        <p class="card-text text-muted">
+                            @Localizer["Home_Feature2_Text"]
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0 text-center">
+                    <div class="card-body p-4">
+                        <div class="bg-warning bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                            <i class="bi bi-credit-card-fill text-warning" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">@Localizer["Home_Feature3_Title"]</h5>
+                        <p class="card-text text-muted">
+                            @Localizer["Home_Feature3_Text"]
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Booking Info Section -->
+<div class="container py-5">
+    <div class="card shadow-sm border-0 bg-primary text-white">
+        <div class="card-body p-5">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h3 class="fw-bold mb-3"><i class="bi bi-info-circle-fill me-2"></i>@Localizer["Home_BookingInfo_Title"]</h3>
+                    <div class="row">
+                        <div class="col-sm-6 mb-2">
+                            <i class="bi bi-clock me-2"></i>@Localizer["Home_BookingInfo_Hourly"]
+                        </div>
+                        <div class="col-sm-6 mb-2">
+                            <i class="bi bi-moon-stars me-2"></i>@Localizer["Home_BookingInfo_Overnight"]
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                    <a asp-page="/Tickets/Create" class="btn btn-light btn-lg">
+                        @Localizer["Home_BookingInfo_Button"] <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Section -->
+<div class="container py-5">
+    <div class="row g-4 text-center">
+        <div class="col-md-3 col-6">
+            <div class="p-3">
+                <i class="bi bi-lightning-charge-fill text-warning" style="font-size: 3rem;"></i>
+                <h3 class="fw-bold mt-2">@Localizer["Home_Stat1_Title"]</h3>
+                <p class="text-muted mb-0">@Localizer["Home_Stat1_Text"]</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="p-3">
+                <i class="bi bi-shield-check text-success" style="font-size: 3rem;"></i>
+                <h3 class="fw-bold mt-2">@Localizer["Home_Stat2_Title"]</h3>
+                <p class="text-muted mb-0">@Localizer["Home_Stat2_Text"]</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="p-3">
+                <i class="bi bi-clock-fill text-info" style="font-size: 3rem;"></i>
+                <h3 class="fw-bold mt-2">@Localizer["Home_Stat3_Title"]</h3>
+                <p class="text-muted mb-0">@Localizer["Home_Stat3_Text"]</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="p-3">
+                <i class="bi bi-people-fill text-primary" style="font-size: 3rem;"></i>
+                <h3 class="fw-bold mt-2">@Localizer["Home_Stat4_Title"]</h3>
+                <p class="text-muted mb-0">@Localizer["Home_Stat4_Text"]</p>
+            </div>
+        </div>
+    </div>
+</div>
