@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using MabatSupportSystem.Data;
 using MabatSupportSystem.Models;
+using MabatSupportSystem.Resources;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +16,7 @@ builder.Services.AddRazorPages()
     .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
     .AddDataAnnotationsLocalization(options => {
         options.DataAnnotationLocalizerProvider = (type, factory) =>
-            factory.Create(typeof(MabatSupportSystem.Resources.SharedResource));
+            factory.Create(typeof(SharedResource));
     });
 
 // Configure Request Localization Options
@@ -130,8 +131,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapStaticAssets();
-app.MapRazorPages()
-   .WithStaticAssets();
+app.UseStaticFiles();
+
+app.MapRazorPages();
 
 app.Run();
