@@ -1,0 +1,75 @@
+@page
+@model LoginModel
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> SharedLocalizer
+@{
+    ViewData["Title"] = SharedLocalizer["Login_Title"];
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+            <!-- Login Card -->
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <i class="bi bi-person-circle display-4 mb-2"></i>
+                    <h4 class="mb-1">أهلاً بعودتك</h4>
+                    <small class="opacity-75">قم بتسجيل الدخول للمتابعة</small>
+                </div>
+                
+                <div class="card-body p-4">
+                    <form id="login-form" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        
+                        <!-- Email -->
+                        <div class="mb-4">
+                            <label asp-for="Input.Email" class="form-label fw-bold">
+                                <i class="bi bi-envelope me-1"></i>@SharedLocalizer["Email"]
+                            </label>
+                            <input asp-for="Input.Email" class="form-control form-control-lg" 
+                                   placeholder="email@example.com" autocomplete="username" />
+                            <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                        </div>
+                        
+                        <!-- Password -->
+                        <div class="mb-4">
+                            <label asp-for="Input.Password" class="form-label fw-bold">
+                                <i class="bi bi-lock me-1"></i>@SharedLocalizer["Password"]
+                            </label>
+                            <input asp-for="Input.Password" class="form-control form-control-lg" 
+                                   placeholder="••••••••" autocomplete="current-password" />
+                            <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                        </div>
+                        
+                        <!-- Remember Me -->
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                            <label class="form-check-label" asp-for="Input.RememberMe">
+                                @SharedLocalizer["RememberMe"]
+                            </label>
+                        </div>
+                        
+                        <!-- Login Button -->
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>@SharedLocalizer["Login_Btn"]
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Footer Links -->
+                <div class="card-footer bg-light text-center py-3">
+                    <p class="mb-2 text-muted">ليس لديك حساب؟</p>
+                    <a asp-page="./Register" class="btn btn-outline-primary">
+                        <i class="bi bi-person-plus me-1"></i>إنشاء حساب جديد
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -48,63 +48,126 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
     <style>
-        /* Fixed language switcher in top-right, independent of RTL/LTR */
-        .language-switcher-fixed {
-            position: fixed;
-            top: 12px;
-            right: 20px;
-            z-index: 1050;
+        /* Body padding for fixed navbar (Bootstrap fixed-top) */
+        body {
+            padding-top: 60px;
+        }
+
+        /* Logo in navbar */
+        .navbar-logo {
+            height: 35px;
+            width: auto;
+            background-color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+        
+        /* Fixed Language Switcher - Always top-right corner */
+        .lang-switcher-fixed {
+            position: fixed !important;
+            top: 10px;
+            right: 15px;
+            z-index: 1100;
+        }
+        
+        .lang-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            background: rgba(255,255,255,0.95);
+            border: none;
+            border-radius: 20px;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #333;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: all 0.2s ease;
+        }
+        
+        .lang-toggle:hover {
+            background: white;
+            transform: scale(1.05);
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .lang-toggle i {
+            font-size: 0.9rem;
+        }
+
+        main {
+            min-height: calc(100vh - 150px);
         }
 
         @@media (max-width: 768px) {
-            .language-switcher-fixed {
+            .navbar-logo {
+                height: 28px;
+            }
+            .lang-switcher-fixed {
                 top: 8px;
                 right: 10px;
             }
-            .language-switcher-fixed .btn {
-                padding: 0.15rem 0.45rem;
-                font-size: 0.8rem;
+            .lang-toggle {
+                padding: 3px 8px;
+                font-size: 0.7rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Fixed language switcher that stays in one place -->
-    <div class="language-switcher-fixed">
-        <partial name="_SelectLanguagePartial" />
+    <!-- Fixed Language Switcher - Always top-right corner -->
+    <div class="lang-switcher-fixed">
+        @if (isArabic)
+        {
+            <a href="/SetLanguage?culture=en-US&returnUrl=@Context.Request.Path" class="lang-toggle" title="Switch to English">
+                <i class="bi bi-globe2"></i> EN
+            </a>
+        }
+        else
+        {
+            <a href="/SetLanguage?culture=ar-SA&returnUrl=@Context.Request.Path" class="lang-toggle" title="التبديل للعربية">
+                <i class="bi bi-globe2"></i> ع
+            </a>
+        }
     </div>
 
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
-            <div class="container position-relative">
-                <a class="navbar-brand fw-bold" asp-page="/Index">
-                    <i class="bi bi-headset"></i> Mabat Support
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm fixed-top">
+            <div class="container">
+                <!-- Logo on the start -->
+                <a class="navbar-brand d-flex align-items-center gap-2" asp-page="/Index">
+                    <img src="/images/mabat-logo.svg" alt="Mabat Logo" class="navbar-logo" />
                 </a>
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" asp-page="/Index">
-                                <i class="bi bi-house"></i> @Localizer["Home"]
+                                <i class="bi bi-house"></i> @SharedLocalizer["Home"]
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-page="/Tickets/Index">
-                                <i class="bi bi-inbox"></i> @Localizer["SupportTickets"]
+                                <i class="bi bi-inbox"></i> @SharedLocalizer["SupportTickets"]
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-page="/Tickets/Create">
-                                <i class="bi bi-plus-circle"></i> @Localizer["CreateTicket"]
+                                <i class="bi bi-plus-circle"></i> @SharedLocalizer["CreateTicket"]
                             </a>
                         </li>
                     </ul>
+                    
+                    <!-- Login partial -->
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
-        </nav>
-    </header>
+    </nav>
     
     <main role="main" class="pb-4">
         <!-- Success/Error Messages -->

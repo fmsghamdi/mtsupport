@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -6,111 +8,109 @@ using MabatSupportSystem.Models;
 
 namespace MabatSupportSystem.Pages.Tickets;
 
+[Authorize]
 public class DetailsModel : PageModel
 {
     private readonly MabatSupportDbContext _context;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public DetailsModel(MabatSupportDbContext context)
+    public DetailsModel(MabatSupportDbContext context, UserManager<ApplicationUser> userManager)
     {
         _context = context;
+        _userManager = userManager;
     }
 
-    public Ticket? Ticket { get; set; }
-    public List<TicketResponse> Responses { get; set; } = new();
+    public Ticket Ticket { get; set; } = default!;
 
-    public async Task<IActionResult> OnGetAsync(int id)
+    [BindProperty]
+    public TicketResponse NewResponse { get; set; } = new();
+
+    // خاصية لتغيير الحالة من الواجهة
+    [BindProperty]
+    public TicketStatus NewStatus { get; set; }
+
+    public async Task<IActionResult> OnGetAsync(int? id)
     {
-        Ticket = await _context.Tickets
-            .Include(t => t.Category)
-            .FirstOrDefaultAsync(t => t.Id == id);
+        if (id == null) return NotFound();
 
-        if (Ticket == null)
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Challenge();
+
+        var ticket = await _context.Tickets
+            .Include(t => t.Category)
+            .Include(t => t.Responses)
+            .FirstOrDefaultAsync(m => m.Id == id);
+
+        if (ticket == null) return NotFound();
+
+        // التعديل 1: السماح بالدخول إذا كان المستخدم هو صاحب التذكرة OR هو أدمن
+        if (ticket.UserId != user.Id && !User.IsInRole("Admin")) 
         {
-            return NotFound();
+            return Forbid();
         }
 
-        // Load responses ordered by creation date
-        Responses = await _context.TicketResponses
-            .Where(r => r.TicketId == id)
-            .OrderBy(r => r.CreatedDate)
-            .ToListAsync();
-
+        Ticket = ticket;
+        NewStatus = ticket.Status; // تعيين الحالة الحالية
         return Page();
     }
 
-    /// <summary>
-    /// Handler for updating ticket status (Admin workflow)
-    /// </summary>
-    public async Task<IActionResult> OnPostUpdateStatusAsync(int id, int newStatus)
+    // دالة إضافة رد
+    public async Task<IActionResult> OnPostAsync(int? id)
     {
-        var ticket = await _context.Tickets.FindAsync(id);
-        if (ticket == null)
-        {
-            return NotFound();
-        }
+        if (id == null) return NotFound();
 
-        try
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Challenge();
+
+        var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == id);
+        if (ticket == null) return NotFound();
+
+        // حماية: التأكد من الصلاحية
+        if (ticket.UserId != user.Id && !User.IsInRole("Admin")) return Forbid();
+
+        if (!string.IsNullOrWhiteSpace(NewResponse.Message))
         {
-            // Update the status
-            ticket.Status = (TicketStatus)newStatus;
+            NewResponse.TicketId = ticket.Id;
+            NewResponse.ResponderId = user.Id;
+            NewResponse.ResponderName = User.IsInRole("Admin") ? "Admin Support" : user.UserName; // تمييز اسم الأدمن
+            NewResponse.CreatedDate = DateTime.UtcNow;
+            
+            // التعديل 2: تحديد هل الرد من موظف أم لا
+            NewResponse.IsStaffResponse = User.IsInRole("Admin");
+
+            _context.TicketResponses.Add(NewResponse);
+            
+            // تحديث وقت آخر تعديل
             ticket.UpdatedDate = DateTime.UtcNow;
 
+            // إذا رد الأدمن، نغير الحالة تلقائياً إلى "قيد التنفيذ" إذا كانت مفتوحة
+            if (User.IsInRole("Admin") && ticket.Status == TicketStatus.Open)
+            {
+                ticket.Status = TicketStatus.InProgress;
+            }
+            
             await _context.SaveChangesAsync();
+        }
 
-            TempData["SuccessMessage"] = $"Ticket status updated to {ticket.Status}";
-            return RedirectToPage(new { id });
-        }
-        catch (Exception ex)
-        {
-            TempData["ErrorMessage"] = $"Failed to update status: {ex.Message}";
-            return RedirectToPage(new { id });
-        }
+        return RedirectToPage(new { id = id });
     }
 
-    /// <summary>
-    /// Handler for adding a response/reply to the ticket
-    /// </summary>
-    public async Task<IActionResult> OnPostAddResponseAsync(int id, string message, bool isStaffResponse = false)
+    // دالة جديدة: تغيير حالة التذكرة (للأدمن فقط)
+    public async Task<IActionResult> OnPostUpdateStatusAsync(int? id)
     {
-        if (string.IsNullOrWhiteSpace(message))
-        {
-            TempData["ErrorMessage"] = "Message cannot be empty";
-            return RedirectToPage(new { id });
-        }
+        if (id == null) return NotFound();
+        
+        // التحقق أن المستخدم أدمن
+        if (!User.IsInRole("Admin")) return Forbid();
 
         var ticket = await _context.Tickets.FindAsync(id);
-        if (ticket == null)
-        {
-            return NotFound();
-        }
+        if (ticket == null) return NotFound();
 
-        try
-        {
-            // Create new response
-            var response = new TicketResponse
-            {
-                TicketId = id,
-                Message = message.Trim(),
-                ResponderId = isStaffResponse ? "STAFF_ADMIN" : "GUEST_USER",
-                ResponderName = isStaffResponse ? "Support Agent" : ticket.UserName ?? "Guest",
-                IsStaffResponse = isStaffResponse,
-                CreatedDate = DateTime.UtcNow
-            };
+        ticket.Status = NewStatus;
+        ticket.UpdatedDate = DateTime.UtcNow;
+        
+        await _context.SaveChangesAsync();
 
-            _context.TicketResponses.Add(response);
-            
-            // Update ticket's last updated timestamp
-            ticket.UpdatedDate = DateTime.UtcNow;
-            
-            await _context.SaveChangesAsync();
-
-            TempData["SuccessMessage"] = "Reply posted successfully";
-            return RedirectToPage(new { id });
-        }
-        catch (Exception ex)
-        {
-            TempData["ErrorMessage"] = $"Failed to post reply: {ex.Message}";
-            return RedirectToPage(new { id });
-        }
+        return RedirectToPage(new { id = id });
     }
 }

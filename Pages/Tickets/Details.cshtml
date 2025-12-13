@@ -1,321 +1,169 @@
 @page "{id:int}"
-@model MabatSupportSystem.Pages.Tickets.DetailsModel
+@model DetailsModel
+@using MabatSupportSystem.Models
+@using MabatSupportSystem
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> SharedLocalizer
+
 @{
-    ViewData["Title"] = $"Ticket #{Model.Ticket?.Id}";
+    ViewData["Title"] = SharedLocalizer["TicketDetails_Title"];
+    var isOwner = Model.Ticket.UserId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+    var isAdmin = User.IsInRole("Admin");
 }
 
-<div class="container-fluid mt-4">
-    <div class="row">
-        <!-- Left Column: Ticket Details -->
-        <div class="col-lg-4 mb-4">
-            <!-- Back Button -->
-            <div class="mb-3">
-                <a asp-page="./Index" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left me-2"></i>Back to Tickets
-                </a>
-            </div>
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>
+            <i class="bi bi-ticket-detailed text-primary"></i> 
+            @SharedLocalizer["Ticket"] #@Model.Ticket.Id: @Model.Ticket.Title
+        </h2>
+        
+        <span class="badge rounded-pill bg-@(Model.Ticket.Status == TicketStatus.Closed ? "secondary" : (Model.Ticket.Status == TicketStatus.Open ? "success" : "warning")) fs-6">
+            @SharedLocalizer[$"Status_{Model.Ticket.Status}"]
+        </span>
+    </div>
 
-            <!-- Ticket Card -->
-            <div class="card shadow-sm border-0 sticky-top" style="top: 20px;">
-                <div class="card-header bg-gradient text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                    <h5 class="mb-0 fw-bold">
-                        <i class="bi bi-ticket-detailed-fill me-2"></i>Ticket #@Model.Ticket?.Id
-                    </h5>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-light">
+                    <div class="d-flex justify-content-between text-muted small">
+                        <span><i class="bi bi-person"></i> @Model.Ticket.UserName</span>
+                        <span><i class="bi bi-calendar"></i> @Model.Ticket.CreatedDate.ToString("g")</span>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <!-- Status Badge -->
-                    <div class="mb-3">
-                        <h6 class="text-muted small mb-2">STATUS</h6>
-                        @switch (Model.Ticket?.Status)
-                        {
-                            case MabatSupportSystem.Models.TicketStatus.Open:
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: #dbeafe; color: #1e40af; font-size: 0.9rem;">
-                                    <i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i>Open
-                                </span>
-                                break;
-                            case MabatSupportSystem.Models.TicketStatus.InProgress:
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: #fef3c7; color: #b45309; font-size: 0.9rem;">
-                                    <i class="bi bi-hourglass-split me-1"></i>In Progress
-                                </span>
-                                break;
-                            case MabatSupportSystem.Models.TicketStatus.Resolved:
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: #d1fae5; color: #065f46; font-size: 0.9rem;">
-                                    <i class="bi bi-check-circle-fill me-1"></i>Resolved
-                                </span>
-                                break;
-                            case MabatSupportSystem.Models.TicketStatus.Closed:
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: #f3f4f6; color: #4b5563; font-size: 0.9rem;">
-                                    <i class="bi bi-lock-fill me-1"></i>Closed
-                                </span>
-                                break;
-                        }
-                    </div>
-
-                    <!-- Priority Badge -->
-                    <div class="mb-3">
-                        <h6 class="text-muted small mb-2">PRIORITY</h6>
-                        @switch (Model.Ticket?.Priority)
-                        {
-                            case MabatSupportSystem.Models.TicketPriority.Low:
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: #e5e7eb; color: #6b7280;">
-                                    <i class="bi bi-arrow-down me-1"></i>Low
-                                </span>
-                                break;
-                            case MabatSupportSystem.Models.TicketPriority.Medium:
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: #dbeafe; color: #1e40af;">
-                                    <i class="bi bi-dash me-1"></i>Medium
-                                </span>
-                                break;
-                            case MabatSupportSystem.Models.TicketPriority.High:
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: #fee2e2; color: #b91c1c;">
-                                    <i class="bi bi-arrow-up me-1"></i>High
-                                </span>
-                                break;
-                        }
-                    </div>
-
-                    <hr class="my-3">
-
-                    <!-- Ticket Info -->
-                    <div class="mb-3">
-                        <h6 class="text-muted small mb-2">TITLE</h6>
-                        <p class="fw-bold mb-0">@Model.Ticket?.Title</p>
-                    </div>
-
-                    <div class="mb-3">
-                        <h6 class="text-muted small mb-2">DESCRIPTION</h6>
-                        <p class="text-muted small">@Model.Ticket?.Description</p>
-                    </div>
-
-                    <div class="mb-3">
-                        <h6 class="text-muted small mb-2">CATEGORY</h6>
-                        <span class="badge bg-light text-dark border">
-                            <i class="bi bi-folder me-1"></i>@Model.Ticket?.Category?.Name
-                        </span>
-                    </div>
-
-                    @if (!string.IsNullOrEmpty(Model.Ticket?.BookingReferenceId))
+                    <h5 class="card-title">@SharedLocalizer["Detailed Description"]</h5>
+                    <p class="card-text text-break">@Model.Ticket.Description</p>
+                    
+                    @if (!string.IsNullOrEmpty(Model.Ticket.BookingReferenceId))
                     {
-                        <div class="mb-3">
-                            <h6 class="text-muted small mb-2">BOOKING REFERENCE</h6>
-                            <span class="badge bg-warning text-dark">
-                                <i class="bi bi-bookmark-fill me-1"></i>@Model.Ticket?.BookingReferenceId
-                            </span>
-                        </div>
+                        <hr />
+                        <p class="mb-0 text-muted small">
+                            <strong>@SharedLocalizer["BookingReference"]:</strong> @Model.Ticket.BookingReferenceId
+                        </p>
                     }
-
-                    <div class="mb-3">
-                        <h6 class="text-muted small mb-2">CREATED BY</h6>
-                        <div class="d-flex align-items-center">
-                            <div class="avatar-circle me-2">
-                                @Model.Ticket?.UserName?.Substring(0, 1).ToUpper()
-                            </div>
-                            <div>
-                                <div class="fw-semibold">@Model.Ticket?.UserName</div>
-                                <small class="text-muted">@Model.Ticket?.CreatedDate.ToLocalTime().ToString("MMM dd, yyyy")</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    @if (Model.Ticket?.UpdatedDate.HasValue == true)
-                    {
-                        <div class="mb-3">
-                            <h6 class="text-muted small mb-2">LAST UPDATED</h6>
-                            <small class="text-muted">
-                                <i class="bi bi-clock me-1"></i>@Model.Ticket?.UpdatedDate?.ToLocalTime().ToString("MMM dd, yyyy HH:mm")
-                            </small>
-                        </div>
-                    }
-                </div>
-
-                <!-- Admin Action Panel -->
-                <div class="card-footer bg-light border-top">
-                    <h6 class="text-muted small mb-3">
-                        <i class="bi bi-gear me-1"></i>ADMIN ACTIONS
-                    </h6>
-                    <form method="post" asp-page-handler="UpdateStatus">
-                        <input type="hidden" name="id" value="@Model.Ticket?.Id" />
-                        <div class="d-grid gap-2">
-                            @if (Model.Ticket?.Status == MabatSupportSystem.Models.TicketStatus.Open)
-                            {
-                                <button type="submit" name="newStatus" value="1" class="btn btn-sm btn-warning">
-                                    <i class="bi bi-play-fill me-1"></i>Start Progress
-                                </button>
-                            }
-                            @if (Model.Ticket?.Status == MabatSupportSystem.Models.TicketStatus.InProgress)
-                            {
-                                <button type="submit" name="newStatus" value="2" class="btn btn-sm btn-success">
-                                    <i class="bi bi-check-circle-fill me-1"></i>Mark Resolved
-                                </button>
-                            }
-                            @if (Model.Ticket?.Status == MabatSupportSystem.Models.TicketStatus.Resolved)
-                            {
-                                <button type="submit" name="newStatus" value="3" class="btn btn-sm btn-secondary">
-                                    <i class="bi bi-lock-fill me-1"></i>Close Ticket
-                                </button>
-                                <button type="submit" name="newStatus" value="0" class="btn btn-sm btn-outline-secondary">
-                                    <i class="bi bi-arrow-counterclockwise me-1"></i>Reopen
-                                </button>
-                            }
-                        </div>
-                    </form>
                 </div>
             </div>
-        </div>
 
-        <!-- Right Column: Conversation -->
-        <div class="col-lg-8">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-white border-bottom">
-                    <h5 class="mb-0 fw-bold">
-                        <i class="bi bi-chat-dots me-2"></i>Conversation
-                        <span class="badge bg-light text-dark ms-2">@Model.Responses?.Count messages</span>
-                    </h5>
-                </div>
-                
-                <!-- Conversation Timeline -->
-                <div class="card-body" style="max-height: 600px; overflow-y: auto;" id="conversationContainer">
-                    @if (Model.Responses?.Any() == true)
+            <h4 class="mb-3">@SharedLocalizer["Discussion_Title"]</h4>
+            
+            @if (Model.Ticket.Responses != null && Model.Ticket.Responses.Any())
+            {
+                <div class="d-flex flex-column gap-3 mb-4">
+                    @foreach (var response in Model.Ticket.Responses.OrderBy(r => r.CreatedDate))
                     {
-                        @foreach (var response in Model.Responses)
-                        {
-                            <div class="message-bubble @(response.IsStaffResponse ? "staff-message" : "user-message") mb-3">
-                                <div class="d-flex align-items-start">
-                                    <div class="avatar-circle me-3 @(response.IsStaffResponse ? "bg-primary" : "bg-secondary")">
-                                        @response.ResponderName?.Substring(0, 1).ToUpper()
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <div class="message-header mb-1">
-                                            <span class="fw-bold">@response.ResponderName</span>
-                                            @if (response.IsStaffResponse)
-                                            {
-                                                <span class="badge bg-primary ms-2">Staff</span>
-                                            }
-                                            <span class="text-muted ms-2 small">
-                                                <i class="bi bi-clock me-1"></i>@response.CreatedDate.ToLocalTime().ToString("MMM dd, HH:mm")
-                                            </span>
-                                        </div>
-                                        <div class="message-content">
-                                            @response.Message
-                                        </div>
-                                    </div>
+                        var isStaff = response.IsStaffResponse;
+                        <div class="card @(isStaff ? "border-primary bg-primary bg-opacity-10 align-self-start" : "bg-light align-self-end")" style="width: 85%;">
+                            <div class="card-body py-2 px-3">
+                                <div class="d-flex justify-content-between mb-1 small @(isStaff ? "text-primary fw-bold" : "text-muted")">
+                                    <span>@(isStaff ? SharedLocalizer["SupportTeam"] : response.ResponderName)</span>
+                                    <span>@response.CreatedDate.ToString("g")</span>
                                 </div>
+                                <p class="card-text mb-0">@response.Message</p>
                             </div>
-                        }
-                    }
-                    else
-                    {
-                        <div class="text-center py-5 text-muted">
-                            <i class="bi bi-chat-text" style="font-size: 3rem; opacity: 0.3;"></i>
-                            <p class="mt-3">No messages yet. Start the conversation below.</p>
                         </div>
                     }
                 </div>
+            }
+            else
+            {
+                <div class="alert alert-info">@SharedLocalizer["NoResponsesYet"]</div>
+            }
 
-                <!-- Reply Form -->
-                <div class="card-footer bg-light border-top">
-                    <form method="post" asp-page-handler="AddResponse" id="replyForm">
-                        <input type="hidden" name="id" value="@Model.Ticket?.Id" />
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">
-                                <i class="bi bi-reply-fill me-1"></i>Post a Reply
-                            </label>
-                            <textarea name="message" class="form-control shadow-sm" rows="4" 
-                                      placeholder="Type your message here..." required></textarea>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="isStaffResponse" id="staffCheck">
-                                <label class="form-check-label small" for="staffCheck">
-                                    <i class="bi bi-shield-check me-1"></i>Post as Staff
-                                </label>
+            @if (Model.Ticket.Status != TicketStatus.Closed)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <form method="post">
+                            <div class="mb-3">
+                                <label class="form-label">@SharedLocalizer["AddReply_Label"]</label>
+                                <textarea asp-for="NewResponse.Message" class="form-control" rows="3" placeholder="@SharedLocalizer["AddReply_Placeholder"]"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-send-fill me-2"></i>Send Reply
+                                <i class="bi bi-send-fill"></i> @SharedLocalizer["PostReply_Btn"]
                             </button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
+            }
+            else
+            {
+                <div class="alert alert-secondary text-center">
+                    <i class="bi bi-lock-fill"></i> @SharedLocalizer["TicketClosed_Message"]
+                </div>
+            }
+        </div>
+
+        <div class="col-md-4">
+            @if (isAdmin)
+            {
+                <div class="card border-danger mb-4">
+                    <div class="card-header bg-danger text-white">
+                        <i class="bi bi-gear-fill"></i> @SharedLocalizer["AdminActions_Title"]
+                    </div>
+                <div class="card-body">
+                        <form method="post" asp-page-handler="UpdateStatus">
+                            <label class="form-label">@SharedLocalizer["ChangeStatus_Label"]</label>
+                            <div class="input-group mb-3">
+                                <select asp-for="NewStatus" class="form-select">
+                                    <option value="Open">@SharedLocalizer["Status_Open"]</option>
+                                    <option value="InProgress">@SharedLocalizer["Status_InProgress"]</option>
+                                    <option value="Resolved">@SharedLocalizer["Status_Resolved"]</option>
+                                    <option value="Closed">@SharedLocalizer["Status_Closed"]</option>
+                                </select>
+                                <button type="submit" class="btn btn-outline-danger">@SharedLocalizer["Update_Btn"]</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+
+            <div class="card">
+                <div class="card-header">
+                    @SharedLocalizer["TicketInfo_Title"]
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>@SharedLocalizer["Category"]:</span>
+                        @{
+                            string catName = Model.Ticket.Category?.Name ?? "";
+                            string catKey = catName switch {
+                                "Check-in Issue" => "Cat_CheckIn",
+                                "General Inquiry" => "Cat_General",
+                                "Payment Issue" => "Cat_Payment",
+                                "Extension Request" => "Cat_Extension",
+                                "Overnight Booking" => "Cat_Overnight",
+                                "4-Hour Booking" => "Cat_Hourly4",
+                                "6-Hour Booking" => "Cat_Hourly6",
+                                "Cancellation" => "Cat_Cancel",
+                                _ => ""
+                            };
+                            string catDisplay = string.IsNullOrEmpty(catKey) ? catName : SharedLocalizer[catKey];
+                        }
+                        <strong>@catDisplay</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>@SharedLocalizer["Priority"]:</span>
+                        @{
+                            string prioKey = Model.Ticket.Priority.ToString() switch {
+                                "Low" => "Priority_Low",
+                                "Medium" => "Priority_Medium",
+                                "High" => "Priority_High",
+                                _ => ""
+                            };
+                            string prioDisplay = string.IsNullOrEmpty(prioKey) ? Model.Ticket.Priority.ToString() : SharedLocalizer[prioKey];
+                        }
+                        <span class="badge bg-secondary">@prioDisplay</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="mt-3">
+                <a asp-page="./Index" class="btn btn-outline-secondary w-100">
+                    <i class="bi bi-arrow-left"></i> @SharedLocalizer["BackToList_Btn"]
+                </a>
             </div>
         </div>
     </div>
 </div>
-
-<style>
-    /* Avatar Circle */
-    .avatar-circle {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        color: white;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-
-    /* Message Bubbles */
-    .message-bubble {
-        animation: fadeInUp 0.3s ease-out;
-    }
-
-    .message-content {
-        background: #f8f9fa;
-        padding: 12px 16px;
-        border-radius: 12px;
-        border-left: 3px solid #e5e7eb;
-    }
-
-    .staff-message .message-content {
-        background: #eff6ff;
-        border-left-color: #3b82f6;
-    }
-
-    .user-message .message-content {
-        background: #f9fafb;
-        border-left-color: #9ca3af;
-    }
-
-    /* Smooth scroll */
-    #conversationContainer {
-        scroll-behavior: smooth;
-    }
-
-    /* Fade in animation */
-    @@keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    /* Hover effects */
-    .card {
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .btn {
-        transition: all 0.2s ease;
-    }
-
-    .btn:hover {
-        transform: translateY(-1px);
-    }
-</style>
-
-@section Scripts {
-    <script>
-        // Scroll to bottom of conversation on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            var container = document.getElementById('conversationContainer');
-            if (container) {
-                container.scrollTop = container.scrollHeight;
-            }
-        });
-    </script>
-}

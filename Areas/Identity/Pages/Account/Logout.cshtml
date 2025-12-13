@@ -1,0 +1,34 @@
+@page
+@model LogoutModel
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> SharedLocalizer
+@{
+    ViewData["Title"] = SharedLocalizer["Logout_Title"];
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+            <!-- Logout Success Card -->
+            <div class="card shadow border-0 text-center">
+                <div class="card-body p-5">
+                    <div class="mb-4">
+                        <i class="bi bi-check-circle text-success display-1"></i>
+                    </div>
+                    
+                    <h3 class="text-success mb-3">@SharedLocalizer["LoggedOutMessage"]</h3>
+                    <p class="text-muted mb-4">@SharedLocalizer["LoggedOutDesc"]</p>
+                    
+                    <div class="d-grid gap-2">
+                        <a asp-page="./Login" class="btn btn-primary btn-lg">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>@SharedLocalizer["LoginAgain"]
+                        </a>
+                        <a asp-page="/Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-house me-2"></i>@SharedLocalizer["GoHome"]
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,180 +1,125 @@
 @page
 @model MabatSupportSystem.Pages.Tickets.CreateModel
+@using MabatSupportSystem
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> SharedLocalizer
 @{
-    ViewData["Title"] = "Create Support Ticket";
+    ViewData["Title"] = SharedLocalizer["CreateTicket_Title"];
 }
 
-<div class="container mt-4">
-    <!-- Header -->
-    <div class="row mb-4">
-        <div class="col">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-page="/Index">Home</a></li>
-                    <li class="breadcrumb-item"><a asp-page="./Index">Tickets</a></li>
-                    <li class="breadcrumb-item active">Create New</li>
-                </ol>
-            </nav>
-            <h1 class="fw-bold">
-                <i class="bi bi-ticket-detailed-fill text-primary"></i> Create Support Ticket
-            </h1>
-            <p class="text-muted">Fill out the form below to submit your support request</p>
-        </div>
-    </div>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-5">
+                <h1 class="fw-bold text-primary">
+                    @SharedLocalizer["CreateTicket_Title"] <i class="bi bi-ticket-perforated-fill"></i>
+                </h1>
+                <p class="text-muted">@SharedLocalizer["CreateTicket_Subtitle"]</p>
+            </div>
 
-    <div class="row">
-        <div class="col-lg-8 mx-auto">
-            <!-- Main Form Card -->
-                <div class="card shadow-sm border-0">
-                <div class="card-body p-4 p-lg-5">
+            @if (Model.ErrorMessage != null)
+            {
+                <div class="alert alert-danger mb-4 shadow-sm" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i> @Model.ErrorMessage
+                </div>
+            }
+
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body p-4 p-md-5">
                     <form method="post">
-                        <!-- Show ALL validation errors including field-level errors -->
-                        <div asp-validation-summary="All" class="alert alert-danger border-0 shadow-sm" role="alert"></div>
-                        
-                        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-                        {
-                            <div class="alert alert-danger border-0 shadow-sm" role="alert">
-                                <i class="bi bi-exclamation-triangle-fill me-2"></i>@Model.ErrorMessage
-                            </div>
-                        }
-
-                        <!-- Row 1: Category and Priority -->
                         <div class="row g-3 mb-4">
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <select asp-for="Ticket.CategoryId" class="form-select shadow-sm" id="categorySelect" asp-items="Model.Categories">
-                                        <option value="">-- Select Category --</option>
+                                    <select asp-for="Ticket.Priority" class="form-select bg-light border-0" asp-items="Model.PriorityList">
                                     </select>
-                                    <label for="categorySelect">
-                                        <i class="bi bi-folder me-1"></i>Category <span class="text-danger">*</span>
+                                    <label asp-for="Ticket.Priority" class="text-muted">
+                                        <i class="bi bi-flag-fill me-1"></i> @SharedLocalizer["Label_Priority"] <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select asp-for="Ticket.CategoryId" class="form-select bg-light border-0" asp-items="Model.CategoryList">
+                                        <option value="">@SharedLocalizer["Option_SelectCategory"]</option>
+                                    </select>
+                                    <label asp-for="Ticket.CategoryId" class="text-muted">
+                                        <i class="bi bi-folder-fill me-1"></i> @SharedLocalizer["Label_Category"] <span class="text-danger">*</span>
                                     </label>
                                     <span asp-validation-for="Ticket.CategoryId" class="text-danger small"></span>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <select asp-for="Ticket.Priority" class="form-select shadow-sm" id="prioritySelect">
-                                        <option value="0">🟢 Low - Can wait</option>
-                                        <option value="1" selected>🔵 Medium - Normal</option>
-                                        <option value="2">🔴 High - Urgent</option>
-                                    </select>
-                                    <label for="prioritySelect">
-                                        <i class="bi bi-flag me-1"></i>Priority <span class="text-danger">*</span>
-                                    </label>
-                                    <span asp-validation-for="Ticket.Priority" class="text-danger small"></span>
-                                </div>
-                            </div>
                         </div>
 
-                        <!-- Row 2: Title -->
                         <div class="mb-4">
-                            <div class="form-floating">
-                                <input asp-for="Ticket.Title" class="form-control shadow-sm" id="titleInput" placeholder="Title" />
-                                <label for="titleInput">
-                                    <i class="bi bi-pencil me-1"></i>Ticket Title <span class="text-danger">*</span>
-                                </label>
-                                <span asp-validation-for="Ticket.Title" class="text-danger small"></span>
-                            </div>
-                            <div class="form-text ms-2">
-                                <i class="bi bi-info-circle-fill me-1"></i>Provide a brief, clear summary of your issue
-                            </div>
-                        </div>
-
-                        <!-- Row 3: Description -->
-                        <div class="mb-4">
-                            <label for="descriptionInput" class="form-label fw-semibold">
-                                <i class="bi bi-text-paragraph me-1"></i>Detailed Description <span class="text-danger">*</span>
+                            <label asp-for="Ticket.Title" class="form-label fw-bold small text-muted text-uppercase">
+                                @SharedLocalizer["Label_Title"] <span class="text-danger">*</span>
                             </label>
-                            <textarea asp-for="Ticket.Description" class="form-control shadow-sm" id="descriptionInput" rows="6" 
-                                      placeholder="Please describe your issue in detail. Include any relevant information that can help us assist you better."></textarea>
-                            <span asp-validation-for="Ticket.Description" class="text-danger small"></span>
-                            <div class="form-text ms-2">
-                                <i class="bi bi-lightbulb me-1"></i>The more details you provide, the faster we can resolve your issue
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0"><i class="bi bi-pen"></i></span>
+                                <input asp-for="Ticket.Title" class="form-control border-start-0" placeholder="@SharedLocalizer["Placeholder_Title"]" />
                             </div>
+                            <div class="form-text"><i class="bi bi-info-circle"></i> @SharedLocalizer["Help_Title"]</div>
+                            <span asp-validation-for="Ticket.Title" class="text-danger small"></span>
                         </div>
 
-                        <!-- Row 4: Booking Reference and Name -->
+                        <div class="mb-4">
+                            <label asp-for="Ticket.Description" class="form-label fw-bold small text-muted text-uppercase">
+                                @SharedLocalizer["Label_Description"] <span class="text-danger">*</span>
+                            </label>
+                            <textarea asp-for="Ticket.Description" class="form-control" rows="6" placeholder="@SharedLocalizer["Placeholder_Description"]"></textarea>
+                            <div class="form-text text-end"><i class="bi bi-lightbulb"></i> @SharedLocalizer["Help_Description"]</div>
+                            <span asp-validation-for="Ticket.Description" class="text-danger small"></span>
+                        </div>
+
                         <div class="row g-3 mb-4">
                             <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input asp-for="Ticket.BookingReferenceId" class="form-control shadow-sm" id="bookingRefInput" placeholder="Booking Reference" />
-                                    <label for="bookingRefInput">
-                                        <i class="bi bi-bookmark me-1"></i>Booking Reference ID <span class="text-muted small">(Optional)</span>
-                                    </label>
-                                    <span asp-validation-for="Ticket.BookingReferenceId" class="text-danger small"></span>
-                                </div>
-                                <div class="form-text ms-2">
-                                    <i class="bi bi-info-circle me-1"></i>Helps us locate your reservation quickly
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-0"><i class="bi bi-person"></i></span>
+                                    <div class="form-floating flex-grow-1">
+                                        <input asp-for="Ticket.UserName" class="form-control border-0 bg-light" placeholder="@SharedLocalizer["Placeholder_YourName"]" />
+                                        <label asp-for="Ticket.UserName">@SharedLocalizer["Label_YourName"]</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input asp-for="Ticket.UserName" class="form-control shadow-sm" id="nameInput" placeholder="Your Name" />
-                                    <label for="nameInput">
-                                        <i class="bi bi-person me-1"></i>Your Full Name <span class="text-danger">*</span>
-                                    </label>
-                                    <span asp-validation-for="Ticket.UserName" class="text-danger small"></span>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-bookmark"></i></span>
+                                    <div class="form-floating flex-grow-1">
+                                        <input asp-for="Ticket.BookingReferenceId" class="form-control border-start-0" placeholder="@SharedLocalizer["Placeholder_BookingRef"]" />
+                                        <label asp-for="Ticket.BookingReferenceId">@SharedLocalizer["Label_BookingRef"]</label>
+                                    </div>
+                                </div>
+                                <div class="form-text text-end small">@SharedLocalizer["Help_BookingRef"] <i class="bi bi-info-circle"></i></div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info border-0 d-flex align-items-center mb-4" role="alert">
+                            <div class="me-3 display-6"><i class="bi bi-clock-history"></i></div>
+                            <div>
+                                <h6 class="alert-heading fw-bold mb-1">@SharedLocalizer["Section_TimeSlots"]</h6>
+                                <div class="small">
+                                    <span class="me-3"><i class="bi bi-moon-stars-fill text-primary"></i> <strong>@SharedLocalizer["TimeSlot_Overnight"]:</strong> @SharedLocalizer["TimeSlot_OvernightDetail"]</span>
+                                    <span><i class="bi bi-check-circle-fill text-success"></i> <strong>@SharedLocalizer["TimeSlot_Hourly"]:</strong> @SharedLocalizer["TimeSlot_HourlyDetail"]</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Info Box -->
-                        <div class="card border-0 bg-primary bg-opacity-10 mb-4">
-                            <div class="card-body">
-                                <h6 class="fw-bold text-primary mb-3">
-                                    <i class="bi bi-clock-history me-2"></i>Mabat Booking Time Slots
-                                </h6>
-                                <div class="row g-2 small">
-                                    <div class="col-md-6">
-                                        <div class="d-flex align-items-start">
-                                            <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
-                                            <div>
-                                                <strong>Hourly Bookings</strong><br>
-                                                <span class="text-muted">4 hours or 6 hours duration</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="d-flex align-items-start">
-                                            <i class="bi bi-moon-stars-fill text-primary me-2 mt-1"></i>
-                                            <div>
-                                                <strong>Overnight/Full Day</strong><br>
-                                                <span class="text-muted">8:00 PM to 12:00 PM (next day)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Action Buttons -->
-                        <div class="d-flex gap-3 justify-content-between">
-                            <a asp-page="./Index" class="btn btn-light btn-lg px-4 shadow-sm">
-                                <i class="bi bi-arrow-left me-2"></i>Cancel
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-between mt-5">
+                            <a asp-page="./Index" class="btn btn-light btn-lg px-4 order-md-2">
+                                @SharedLocalizer["Btn_Cancel"] <i class="bi bi-arrow-left ms-2"></i>
                             </a>
-                            <button type="submit" class="btn btn-primary btn-lg px-5 shadow-sm">
-                                <i class="bi bi-send-fill me-2"></i>Submit Ticket
+                            <button type="submit" class="btn btn-primary btn-lg px-5 order-md-1 shadow-sm">
+                                <i class="bi bi-send-fill me-2"></i> @SharedLocalizer["Btn_Submit"]
                             </button>
                         </div>
                     </form>
                 </div>
-            </div>
-
-            <!-- Help Card -->
-            <div class="card border-0 bg-light mt-4">
-                <div class="card-body p-4">
-                    <div class="row align-items-center">
-                        <div class="col-md-2 text-center mb-3 mb-md-0">
-                            <i class="bi bi-question-circle text-primary" style="font-size: 3rem;"></i>
-                        </div>
-                        <div class="col-md-10">
-                            <h6 class="fw-bold mb-2">Need Help?</h6>
-                            <p class="mb-0 small text-muted">
-                                Our support team typically responds within 2-4 hours during business hours. 
-                                For urgent matters, please select "High Priority" when creating your ticket.
-                            </p>
-                        </div>
-                    </div>
+                <div class="card-footer bg-light p-4 text-center border-top-0 rounded-bottom-3">
+                    <small class="text-muted fw-bold">@SharedLocalizer["Help_Box_Title"]</small>
+                    <p class="mb-0 small text-muted">
+                        @SharedLocalizer["Help_Box_Text"]
+                        <i class="bi bi-question-circle text-primary ms-1"></i>
+                    </p>
                 </div>
             </div>
         </div>
@@ -182,5 +127,5 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

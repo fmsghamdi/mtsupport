@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" msdata:Ordinal="5" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <!-- ==================== NAVIGATION ==================== -->
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="SupportTickets" xml:space="preserve">
+    <value>Support Tickets</value>
+  </data>
+  <data name="CreateTicket" xml:space="preserve">
+    <value>Create Ticket</value>
+  </data>
+  
+  <!-- ==================== HERO SECTION ==================== -->
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>Welcome to Mabat Support Center</value>
+  </data>
+  <data name="WelcomeSubtitle" xml:space="preserve">
+    <value>We're here to help with your hotel booking issues</value>
+  </data>
+  <data name="CreateTicketBtn" xml:space="preserve">
+    <value>Create New Ticket</value>
+  </data>
+  <data name="MyTicketsBtn" xml:space="preserve">
+    <value>My Tickets</value>
+  </data>
+  
+  <!-- ==================== FEATURES SECTION ==================== -->
+  <data name="Home_HelpTitle" xml:space="preserve">
+    <value>How Can We Help You?</value>
+  </data>
+  <data name="Home_HelpSubtitle" xml:space="preserve">
+    <value>Get support for all your Mabat booking needs</value>
+  </data>
+  
+  <data name="Home_Feature1_Title" xml:space="preserve">
+    <value>Booking Extensions</value>
+  </data>
+  <data name="Home_Feature1_Text" xml:space="preserve">
+    <value>Need to extend your 4-hour booking to 6 hours? We can help with that.</value>
+  </data>
+  
+  <data name="Home_Feature2_Title" xml:space="preserve">
+    <value>Check-in Issues</value>
+  </data>
+  <data name="Home_Feature2_Text" xml:space="preserve">
+    <value>Problems with room access or check-in process? Let us resolve it quickly.</value>
+  </data>
+  
+  <data name="Home_Feature3_Title" xml:space="preserve">
+    <value>Payment and Billing</value>
+  </data>
+  <data name="Home_Feature3_Text" xml:space="preserve">
+    <value>Questions about payments, refunds, or billing? We're here to assist.</value>
+  </data>
+  
+  <!-- ==================== BOOKING INFO SECTION ==================== -->
+  <data name="Home_BookingInfo_Title" xml:space="preserve">
+    <value>Mabat Booking Time Slots</value>
+  </data>
+  <data name="Home_BookingInfo_Hourly" xml:space="preserve">
+    <value>Hourly Bookings: 4 hours or 6 hours</value>
+  </data>
+  <data name="Home_BookingInfo_Overnight" xml:space="preserve">
+    <value>Overnight: 8:00 PM to 12:00 PM (next day)</value>
+  </data>
+  <data name="Home_BookingInfo_Button" xml:space="preserve">
+    <value>Get Support Now</value>
+  </data>
+  
+  <!-- ==================== STATS SECTION ==================== -->
+  <data name="Home_Stat1_Title" xml:space="preserve">
+    <value>Fast</value>
+  </data>
+  <data name="Home_Stat1_Text" xml:space="preserve">
+    <value>Quick Response</value>
+  </data>
+  
+  <data name="Home_Stat2_Title" xml:space="preserve">
+    <value>Secure</value>
+  </data>
+  <data name="Home_Stat2_Text" xml:space="preserve">
+    <value>Your Data Protected</value>
+  </data>
+  
+  <data name="Home_Stat3_Title" xml:space="preserve">
+    <value>24/7</value>
+  </data>
+  <data name="Home_Stat3_Text" xml:space="preserve">
+    <value>Always Available</value>
+  </data>
+  
+  <data name="Home_Stat4_Title" xml:space="preserve">
+    <value>Expert</value>
+  </data>
+  <data name="Home_Stat4_Text" xml:space="preserve">
+    <value>Professional Support</value>
+  </data>
+</root>

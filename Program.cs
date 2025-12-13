@@ -3,13 +3,15 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using MabatSupportSystem.Data;
 using MabatSupportSystem.Models;
-using MabatSupportSystem.Resources;
+using MabatSupportSystem;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure Localization FIRST
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+// =========================================================
+// 1. إعداد نظام الترجمة
+// =========================================================
+builder.Services.AddLocalization();
 
 // Add services to the container.
 builder.Services.AddRazorPages()
@@ -28,7 +30,13 @@ var supportedCultures = new[]
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-    options.DefaultRequestCulture = new RequestCulture("en-US");
+    var arCulture = new RequestCulture("ar-SA");
+    // إجبار النظام على استخدام التقويم الميلادي (Gregorian) حتى مع اللغة العربية
+    // لتجنب مشاكل تواريخ الهجري في قواعد البيانات
+    arCulture.Culture.DateTimeFormat.Calendar = new GregorianCalendar();
+    arCulture.UICulture.DateTimeFormat.Calendar = new GregorianCalendar();
+
+    options.DefaultRequestCulture = arCulture;
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
     
@@ -101,16 +109,20 @@ var app = builder.Build();
 // Auto-create database at startup
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<MabatSupportDbContext>();
+    var services = scope.ServiceProvider; 
+    var db = services.GetRequiredService<MabatSupportDbContext>();
+    
     try
     {
-        db.Database.EnsureCreated();
-        Console.WriteLine("✅ Database created and seeded successfully!");
+        db.Database.Migrate();
+        Console.WriteLine("✅ Database created successfully!");
+
+        await DbInitializer.Initialize(services);
+        Console.WriteLine("✅ Admin account seeded successfully!");
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"❌ Database creation failed: {ex.Message}");
-        throw;
+        Console.WriteLine($"❌ Error: {ex.Message}");
     }
 }
 
@@ -123,15 +135,15 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Use Localization
-app.UseRequestLocalization();
+// 2. ترتيب الـ Middleware الصحيح (مهم جداً للصور والترجمة)
+app.UseStaticFiles(); // الملفات الثابتة أولاً
 
-app.UseRouting();
+app.UseRequestLocalization(); // ثم الترجمة
+
+app.UseRouting(); // ثم التوجيه
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseStaticFiles();
 
 app.MapRazorPages();
 

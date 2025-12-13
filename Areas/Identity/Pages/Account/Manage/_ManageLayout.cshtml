@@ -1,0 +1,42 @@
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-gear me-2"></i>إعدادات الحساب
+                    </h6>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a asp-page="./Index" class="list-group-item list-group-item-action">
+                        <i class="bi bi-person me-2"></i>الملف الشخصي
+                    </a>
+                    <a asp-page="./Email" class="list-group-item list-group-item-action">
+                        <i class="bi bi-envelope me-2"></i>البريد الإلكتروني
+                    </a>
+                    <a asp-page="./ChangePassword" class="list-group-item list-group-item-action">
+                        <i class="bi bi-key me-2"></i>تغيير كلمة المرور
+                    </a>
+                    <a asp-page="./TwoFactorAuthentication" class="list-group-item list-group-item-action">
+                        <i class="bi bi-shield-lock me-2"></i>التحقق بخطوتين
+                    </a>
+                    <a asp-page="./PersonalData" class="list-group-item list-group-item-action">
+                        <i class="bi bi-database me-2"></i>البيانات الشخصية
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@RenderSection("Scripts", required: false)

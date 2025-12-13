@@ -1,4 +1,4 @@
-namespace MabatSupportSystem.Resources;
+namespace MabatSupportSystem;
 
 /// <summary>
 /// Dummy class for shared resource files.
@@ -6,8 +6,8 @@ namespace MabatSupportSystem.Resources;
 /// instead of creating separate resource files for each page.
 /// 
 /// Usage in Razor Pages:
-/// @inject IViewLocalizer Localizer
-/// @Localizer["CreateTicket"]
+/// @inject IStringLocalizer SharedLocalizer
+/// @SharedLocalizer["CreateTicket"]
 /// </summary>
 public class SharedResource
 {

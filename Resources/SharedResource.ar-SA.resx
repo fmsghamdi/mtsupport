@@ -5,23 +5,6 @@
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
@@ -31,7 +14,7 @@
               <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" msdata:Ordinal="5" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -46,113 +29,219 @@
       </xsd:complexType>
     </xsd:element>
   </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <data name="Home" xml:space="preserve"><value>الرئيسية</value></data>
+  <data name="SupportTickets" xml:space="preserve"><value>تذاكر الدعم</value></data>
+  <data name="CreateTicket" xml:space="preserve"><value>إنشاء تذكرة</value></data>
+  <data name="Login" xml:space="preserve"><value>تسجيل الدخول</value></data>
+  <data name="Register" xml:space="preserve"><value>تسجيل جديد</value></data>
+  <data name="Logout" xml:space="preserve"><value>خروج</value></data>
+  <data name="Admin" xml:space="preserve"><value>الإدارة</value></data>
+
+  <data name="WelcomeTitle" xml:space="preserve"><value>مرحباً بك في مركز دعم مبات</value></data>
+  <data name="WelcomeSubtitle" xml:space="preserve"><value>نحن هنا لمساعدتك في حل مشاكل حجز الفندق وضمان إقامة مريحة وممتعة</value></data>
+  <data name="CreateTicketBtn" xml:space="preserve"><value>فتح تذكرة جديدة</value></data>
+  <data name="MyTicketsBtn" xml:space="preserve"><value>تذاكري</value></data>
+  <data name="Home_HelpTitle" xml:space="preserve"><value>كيف يمكننا مساعدتك؟</value></data>
+  <data name="Home_HelpSubtitle" xml:space="preserve"><value>اختر الخدمة التي تناسب احتياجك للحصول على الدعم المناسب</value></data>
+  <data name="Home_Feature1_Title" xml:space="preserve"><value>تمديد الحجوزات</value></data>
+  <data name="Home_Feature1_Text" xml:space="preserve"><value>هل تحتاج لتمديد حجز الساعات؟ فريقنا جاهز لمساعدتك فوراً.</value></data>
+  <data name="Home_Feature2_Title" xml:space="preserve"><value>مشاكل الدخول</value></data>
+  <data name="Home_Feature2_Text" xml:space="preserve"><value>تواجه صعوبة في تسجيل الدخول أو الوصول للغرفة؟ نحن هنا للحل.</value></data>
+  <data name="Home_Feature3_Title" xml:space="preserve"><value>المدفوعات والفواتير</value></data>
+  <data name="Home_Feature3_Text" xml:space="preserve"><value>لديك استفسار عن عملية دفع أو استرجاع مبلغ؟ تواصل معنا.</value></data>
+  <data name="Home_BookingInfo_Title" xml:space="preserve"><value>معلومات فترات الحجز</value></data>
+  <data name="Home_BookingInfo_Hourly" xml:space="preserve"><value>حجوزات بالساعة: (4 ساعات أو 6 ساعات)</value></data>
+  <data name="Home_BookingInfo_Overnight" xml:space="preserve"><value>مبيت ليلي/يومي: (من 8 مساءً حتى 12 ظهراً)</value></data>
+  <data name="Home_BookingInfo_Button" xml:space="preserve"><value>احصل على الدعم الآن</value></data>
+  <data name="Home_Stat1_Title" xml:space="preserve"><value>سريع</value></data>
+  <data name="Home_Stat1_Text" xml:space="preserve"><value>استجابة فورية</value></data>
+  <data name="Home_Stat2_Title" xml:space="preserve"><value>آمن</value></data>
+  <data name="Home_Stat2_Text" xml:space="preserve"><value>حماية لبياناتك</value></data>
+  <data name="Home_Stat3_Title" xml:space="preserve"><value>24/7</value></data>
+  <data name="Home_Stat3_Text" xml:space="preserve"><value>دعم متواصل</value></data>
+  <data name="Home_Stat4_Title" xml:space="preserve"><value>خبراء</value></data>
+  <data name="Home_Stat4_Text" xml:space="preserve"><value>فريق محترف</value></data>
+  <data name="Search" xml:space="preserve"><value>بحث...</value></data>
+
+  <data name="Index_Title" xml:space="preserve"><value>تذاكري</value></data>
+  <data name="Index_Subtitle" xml:space="preserve"><value>تتبع وإدارة طلبات الدعم الخاصة بك</value></data>
+  <data name="Btn_CreateNew" xml:space="preserve"><value>إنشاء تذكرة جديدة</value></data>
+  <data name="Filter_Title" xml:space="preserve"><value>بحث وتصفية</value></data>
   
-  <!-- ==================== NAVIGATION ==================== -->
-  <data name="Home" xml:space="preserve">
-    <value>الرئيسية</value>
-  </data>
-  <data name="SupportTickets" xml:space="preserve">
-    <value>تذاكر الدعم</value>
-  </data>
-  <data name="CreateTicket" xml:space="preserve">
-    <value>إنشاء تذكرة</value>
-  </data>
+  <data name="Option_AllStatuses" xml:space="preserve"><value>كل الحالات</value></data>
+  <data name="Option_AllPriorities" xml:space="preserve"><value>كل الأولويات</value></data>
+  <data name="Option_SelectCategory" xml:space="preserve"><value>-- اختر القسم --</value></data>
   
-  <!-- ==================== HERO SECTION ==================== -->
-  <data name="WelcomeTitle" xml:space="preserve">
-    <value>مرحباً بك في مركز دعم مبات</value>
-  </data>
-  <data name="WelcomeSubtitle" xml:space="preserve">
-    <value>نحن هنا لمساعدتك في حل مشاكل حجز الفندق</value>
-  </data>
-  <data name="CreateTicketBtn" xml:space="preserve">
-    <value>فتح تذكرة جديدة</value>
-  </data>
-  <data name="MyTicketsBtn" xml:space="preserve">
-    <value>تذاكري</value>
-  </data>
+  <data name="Cat_CheckIn" xml:space="preserve"><value>مشكلة تسجيل الدخول للغرفة</value></data>
+  <data name="Cat_General" xml:space="preserve"><value>استفسار عام</value></data>
+  <data name="Cat_Payment" xml:space="preserve"><value>مشكلة في الدفع أو الفاتورة</value></data>
+  <data name="Cat_Extension" xml:space="preserve"><value>طلب تمديد الحجز</value></data>
+  <data name="Cat_Overnight" xml:space="preserve"><value>حجز مبيت ليلي</value></data>
+  <data name="Cat_Hourly4" xml:space="preserve"><value>حجز 4 ساعات</value></data>
+  <data name="Cat_Hourly6" xml:space="preserve"><value>حجز 6 ساعات</value></data>
+  <data name="Cat_Cancel" xml:space="preserve"><value>طلب إلغاء الحجز</value></data>
+
+  <data name="TABLE_ACTION" xml:space="preserve"><value>الإجراء</value></data>
+  <data name="LABEL_STATUS" xml:space="preserve"><value>الحالة</value></data>
+  <data name="TABLE_DATE" xml:space="preserve"><value>التاريخ</value></data>
+  <data name="TABLE_CATEGORY" xml:space="preserve"><value>القسم</value></data>
+  <data name="TABLE_SUBJECT" xml:space="preserve"><value>الموضوع</value></data>
+  <data name="TABLE_ID" xml:space="preserve"><value>رقم #</value></data>
+  <data name="Btn_View" xml:space="preserve"><value>عرض</value></data>
+
+  <data name="CreateTicket_Title" xml:space="preserve"><value>إنشاء تذكرة دعم</value></data>
+  <data name="CreateTicket_Subtitle" xml:space="preserve"><value>املأ النموذج أدناه لإرسال طلبك</value></data>
   
-  <!-- ==================== FEATURES SECTION ==================== -->
-  <data name="Home_HelpTitle" xml:space="preserve">
-    <value>كيف نقدر نساعدك؟</value>
-  </data>
-  <data name="Home_HelpSubtitle" xml:space="preserve">
-    <value>احصل على دعم كامل لجميع احتياجات حجزك مع مبات</value>
-  </data>
+  <data name="Label_Category" xml:space="preserve"><value>القسم</value></data>
+  <data name="Label_Priority" xml:space="preserve"><value>الأولوية</value></data>
+  <data name="Priority_Medium" xml:space="preserve"><value>متوسط - عادي</value></data>
+  <data name="Priority_High" xml:space="preserve"><value>عالي</value></data>
+  <data name="Priority_Low" xml:space="preserve"><value>منخفض</value></data>
   
-  <data name="Home_Feature1_Title" xml:space="preserve">
-    <value>تمديد الحجوزات</value>
-  </data>
-  <data name="Home_Feature1_Text" xml:space="preserve">
-    <value>تحتاج تمدد حجز الأربع ساعات إلى ست ساعات؟ فريقنا يساعدك بسرعة.</value>
-  </data>
+  <data name="LABEL_TITLE" xml:space="preserve"><value>عنوان التذكرة</value></data>
+  <data name="Placeholder_Title" xml:space="preserve"><value>اكتب عنواناً مختصراً للمشكلة...</value></data>
+  <data name="Help_Title" xml:space="preserve"><value>عنوان واضح يساعدنا على فهم المشكلة بسرعة</value></data>
   
-  <data name="Home_Feature2_Title" xml:space="preserve">
-    <value>مشاكل تسجيل الدخول</value>
-  </data>
-  <data name="Home_Feature2_Text" xml:space="preserve">
-    <value>صادفتك مشكلة في الوصول للغرفة أو في إجراءات الدخول؟ نحلها لك فوراً.</value>
-  </data>
+  <data name="LABEL_DESCRIPTION" xml:space="preserve"><value>الوصف التفصيلي</value></data>
+  <data name="Placeholder_Description" xml:space="preserve"><value>اشرح مشكلتك بالتفصيل هنا...</value></data>
+  <data name="Help_Description" xml:space="preserve"><value>كلما زادت التفاصيل، كان الحل أسرع</value></data>
   
-  <data name="Home_Feature3_Title" xml:space="preserve">
-    <value>الدفع والفوترة</value>
-  </data>
-  <data name="Home_Feature3_Text" xml:space="preserve">
-    <value>استفسارات عن المدفوعات أو الاسترجاع أو الفواتير؟ تواصل معنا.</value>
-  </data>
+  <data name="Label_BookingRef" xml:space="preserve"><value>رقم الحجز (اختياري)</value></data>
+  <data name="Placeholder_BookingRef" xml:space="preserve"><value>مثال: 123456</value></data>
+  <data name="Help_BookingRef" xml:space="preserve"><value>يساعدنا في الوصول لبيانات حجزك</value></data>
   
-  <!-- ==================== BOOKING INFO SECTION ==================== -->
-  <data name="Home_BookingInfo_Title" xml:space="preserve">
-    <value>فترات حجز مبات</value>
-  </data>
-  <data name="Home_BookingInfo_Hourly" xml:space="preserve">
-    <value>حجوزات بالساعة: ٤ ساعات أو ٦ ساعات</value>
-  </data>
-  <data name="Home_BookingInfo_Overnight" xml:space="preserve">
-    <value>مبيت ليلي: من ٨ مساءً حتى ١٢ ظهراً لليوم التالي</value>
-  </data>
-  <data name="Home_BookingInfo_Button" xml:space="preserve">
-    <value>احصل على دعم الآن</value>
-  </data>
+  <data name="Label_YourName" xml:space="preserve"><value>اسمك</value></data>
+  <data name="Placeholder_YourName" xml:space="preserve"><value>اسمك الكامل</value></data>
   
-  <!-- ==================== STATS SECTION ==================== -->
-  <data name="Home_Stat1_Title" xml:space="preserve">
-    <value>سريع</value>
-  </data>
-  <data name="Home_Stat1_Text" xml:space="preserve">
-    <value>استجابة فورية</value>
-  </data>
+  <data name="Section_TimeSlots" xml:space="preserve"><value>أوقات حجوزات مبات</value></data>
+  <data name="TimeSlot_Overnight" xml:space="preserve"><value>مبيت / يوم كامل</value></data>
+  <data name="TimeSlot_OvernightDetail" xml:space="preserve"><value>من 8:00 مساءً إلى 12:00 ظهراً</value></data>
+  <data name="TimeSlot_Hourly" xml:space="preserve"><value>حجوزات بالساعة</value></data>
+  <data name="TimeSlot_HourlyDetail" xml:space="preserve"><value>لمدة 4 ساعات أو 6 ساعات</value></data>
   
-  <data name="Home_Stat2_Title" xml:space="preserve">
-    <value>آمن</value>
-  </data>
-  <data name="Home_Stat2_Text" xml:space="preserve">
-    <value>حماية كاملة لبياناتك</value>
-  </data>
+  <data name="Btn_Cancel" xml:space="preserve"><value>إلغاء</value></data>
+  <data name="Btn_Submit" xml:space="preserve"><value>إرسال التذكرة</value></data>
   
-  <data name="Home_Stat3_Title" xml:space="preserve">
-    <value>على مدار الساعة</value>
-  </data>
-  <data name="Home_Stat3_Text" xml:space="preserve">
-    <value>متواجدون دائماً لخدمتك</value>
-  </data>
+  <data name="Help_Box_Title" xml:space="preserve"><value>تعليمات المساعدة</value></data>
+  <data name="Help_Box_Text" xml:space="preserve"><value>يرجى التأكد من اختيار القسم الصحيح لتسريع عملية الرد.</value></data>
+
+  <data name="TicketDetails_Title" xml:space="preserve"><value>تفاصيل التذكرة</value></data>
+  <data name="Ticket" xml:space="preserve"><value>تذكرة</value></data>
+  <data name="Status_Open" xml:space="preserve"><value>مفتوحة</value></data>
+  <data name="Status_Closed" xml:space="preserve"><value>مغلقة</value></data>
+  <data name="Status_InProgress" xml:space="preserve"><value>قيد التنفيذ</value></data>
+  <data name="Status_Resolved" xml:space="preserve"><value>تم الحل</value></data>
+  <data name="Open" xml:space="preserve"><value>مفتوحة</value></data>
+  <data name="Closed" xml:space="preserve"><value>مغلقة</value></data>
+  <data name="InProgress" xml:space="preserve"><value>قيد التنفيذ</value></data>
+  <data name="Resolved" xml:space="preserve"><value>تم الحل</value></data>
+  <data name="Low" xml:space="preserve"><value>منخفض</value></data>
+  <data name="Medium" xml:space="preserve"><value>متوسط</value></data>
+  <data name="High" xml:space="preserve"><value>عالي</value></data>
+  <data name="Check-in Issue" xml:space="preserve"><value>مشكلة تسجيل دخول</value></data>
+  <data name="General Inquiry" xml:space="preserve"><value>استفسار عام</value></data>
+  <data name="Payment Issue" xml:space="preserve"><value>مشكلة دفع</value></data>
+  <data name="Extension Request" xml:space="preserve"><value>طلب تمديد</value></data>
+  <data name="Overnight Booking" xml:space="preserve"><value>حجز مبيت</value></data>
+  <data name="4-Hour Booking" xml:space="preserve"><value>حجز 4 ساعات</value></data>
+  <data name="6-Hour Booking" xml:space="preserve"><value>حجز 6 ساعات</value></data>
+  <data name="Cancellation" xml:space="preserve"><value>إلغاء</value></data>
+  <data name="Detailed Description" xml:space="preserve"><value>الوصف التفصيلي</value></data>
+  <data name="BookingReference" xml:space="preserve"><value>الرقم المرجعي</value></data>
+  <data name="Discussion_Title" xml:space="preserve"><value>المناقشة والردود</value></data>
+  <data name="SupportTeam" xml:space="preserve"><value>فريق الدعم</value></data>
+  <data name="NoResponsesYet" xml:space="preserve"><value>لا توجد ردود حتى الآن.</value></data>
+  <data name="AddReply_Label" xml:space="preserve"><value>إضافة رد</value></data>
+  <data name="AddReply_Placeholder" xml:space="preserve"><value>اكتب ردك هنا...</value></data>
+  <data name="PostReply_Btn" xml:space="preserve"><value>إرسال الرد</value></data>
+  <data name="TicketClosed_Message" xml:space="preserve"><value>هذه التذكرة مغلقة. لا يمكن إضافة ردود جديدة.</value></data>
+  <data name="AdminActions_Title" xml:space="preserve"><value>تحكم الإدارة</value></data>
+  <data name="ChangeStatus_Label" xml:space="preserve"><value>تغيير الحالة</value></data>
+  <data name="Update_Btn" xml:space="preserve"><value>تحديث</value></data>
+  <data name="TicketInfo_Title" xml:space="preserve"><value>معلومات التذكرة</value></data>
+  <data name="Category" xml:space="preserve"><value>القسم</value></data>
+  <data name="Priority" xml:space="preserve"><value>الأولوية</value></data>
+  <data name="BackToList_Btn" xml:space="preserve"><value>عودة للقائمة</value></data>
+
+  <data name="Create_Account_Title" xml:space="preserve"><value>إنشاء حساب جديد</value></data>
+  <data name="FullName" xml:space="preserve"><value>الاسم الكامل</value></data>
+  <data name="Email" xml:space="preserve"><value>البريد الإلكتروني</value></data>
+  <data name="Password" xml:space="preserve"><value>كلمة المرور</value></data>
+  <data name="ConfirmPassword" xml:space="preserve"><value>تأكيد كلمة المرور</value></data>
+  <data name="Register_Btn" xml:space="preserve"><value>تسجيل حساب</value></data>
+  <data name="AlreadyHaveAccount" xml:space="preserve"><value>لديك حساب بالفعل؟ سجل دخولك هنا</value></data>
+  <data name="Login_Btn" xml:space="preserve"><value>دخول</value></data>
+  <data name="RememberMe" xml:space="preserve"><value>تذكرني</value></data>
   
-  <data name="Home_Stat4_Title" xml:space="preserve">
-    <value>خبراء</value>
-  </data>
-  <data name="Home_Stat4_Text" xml:space="preserve">
-    <value>فريق دعم محترف</value>
-  </data>
+  <data name="Login_Title" xml:space="preserve"><value>تسجيل الدخول</value></data>
+  <data name="Login_LocalAccount" xml:space="preserve"><value>استخدم حسابك المحلي لتسجيل الدخول</value></data>
+  <data name="ForgotPassword" xml:space="preserve"><value>نسيت كلمة المرور؟</value></data>
+  <data name="RegisterNewUser" xml:space="preserve"><value>تسجيل مستخدم جديد</value></data>
+  <data name="ResendConfirmation" xml:space="preserve"><value>إعادة إرسال تأكيد البريد</value></data>
+  <data name="ExternalLogin" xml:space="preserve"><value>استخدم خدمة أخرى لتسجيل الدخول</value></data>
+  <data name="NoExternalServices" xml:space="preserve"><value>لا توجد خدمات مصادقة خارجية مُعدة.</value></data>
+  
+  <data name="Logout_Title" xml:space="preserve"><value>تسجيل الخروج</value></data>
+  <data name="Logout_Success" xml:space="preserve"><value>تم تسجيل خروجك بنجاح من التطبيق.</value></data>
+  
+  <data name="Manage_Title" xml:space="preserve"><value>إدارة حسابك</value></data>
+  <data name="Manage_Subtitle" xml:space="preserve"><value>تغيير إعدادات الحساب</value></data>
+  <data name="Profile" xml:space="preserve"><value>الملف الشخصي</value></data>
+  <data name="TwoFactorAuth" xml:space="preserve"><value>التحقق بخطوتين</value></data>
+  <data name="PersonalData" xml:space="preserve"><value>البيانات الشخصية</value></data>
+  <data name="Save" xml:space="preserve"><value>حفظ</value></data>
+  
+  <data name="Empty_Title" xml:space="preserve"><value>لا توجد تذاكر</value></data>
+  <data name="Empty_Text" xml:space="preserve"><value>لم تقم بإنشاء أي تذاكر دعم بعد.</value></data>
+  <data name="Btn_CreateFirst" xml:space="preserve"><value>إنشاء أول تذكرة</value></data>
+  
+  <data name="Hello" xml:space="preserve"><value>مرحباً</value></data>
+  
+  <data name="ManageAccountSettings" xml:space="preserve"><value>إدارة إعدادات حسابك</value></data>
+  <data name="EmailCannotBeChanged" xml:space="preserve"><value>البريد الإلكتروني لا يمكن تغييره</value></data>
+  <data name="EnterFullName" xml:space="preserve"><value>أدخل اسمك الكامل</value></data>
+  <data name="PhoneNumber" xml:space="preserve"><value>رقم الهاتف</value></data>
+  <data name="EnterPhoneNumber" xml:space="preserve"><value>أدخل رقم هاتفك</value></data>
+  <data name="SaveChanges" xml:space="preserve"><value>حفظ التغييرات</value></data>
+  <data name="QuickLinks" xml:space="preserve"><value>روابط سريعة</value></data>
+  <data name="MyTickets" xml:space="preserve"><value>تذاكري</value></data>
+  
+  <data name="NoAccount" xml:space="preserve"><value>ليس لديك حساب؟</value></data>
+  <data name="CreateNewAccount" xml:space="preserve"><value>إنشاء حساب جديد</value></data>
+  <data name="WelcomeBack" xml:space="preserve"><value>مرحباً بعودتك</value></data>
+  <data name="PleaseSignIn" xml:space="preserve"><value>سجل دخولك للوصول لحسابك</value></data>
+  <data name="LoggedOutMessage" xml:space="preserve"><value>تم تسجيل خروجك بنجاح</value></data>
+  <data name="LoggedOutDesc" xml:space="preserve"><value>شكراً لاستخدامك نظام دعم مبات. نتمنى لك يوماً سعيداً!</value></data>
+  <data name="LoginAgain" xml:space="preserve"><value>تسجيل الدخول مرة أخرى</value></data>
+  <data name="GoHome" xml:space="preserve"><value>الذهاب للرئيسية</value></data>
+  
+  <data name="AccountSettings" xml:space="preserve"><value>إعدادات الحساب</value></data>
+  <data name="ChangePassword" xml:space="preserve"><value>تغيير كلمة المرور</value></data>
+  <data name="CurrentPassword" xml:space="preserve"><value>كلمة المرور الحالية</value></data>
+  <data name="NewPassword" xml:space="preserve"><value>كلمة المرور الجديدة</value></data>
+  <data name="ConfirmNewPassword" xml:space="preserve"><value>تأكيد كلمة المرور الجديدة</value></data>
+  <data name="UpdatePassword" xml:space="preserve"><value>تحديث كلمة المرور</value></data>
+  <data name="ChangePasswordDesc" xml:space="preserve"><value>قم بتغيير كلمة المرور الخاصة بك للحفاظ على أمان حسابك</value></data>
+  
+  <data name="ManageEmail" xml:space="preserve"><value>إدارة البريد الإلكتروني</value></data>
+  <data name="EmailDesc" xml:space="preserve"><value>البريد الإلكتروني المرتبط بحسابك</value></data>
+  <data name="SendVerification" xml:space="preserve"><value>إرسال رابط التحقق</value></data>
+  <data name="NewEmail" xml:space="preserve"><value>البريد الإلكتروني الجديد</value></data>
+  <data name="ChangeEmail" xml:space="preserve"><value>تغيير البريد</value></data>
+  
+  <data name="TwoFactorTitle" xml:space="preserve"><value>التحقق بخطوتين (2FA)</value></data>
+  <data name="TwoFactorDesc" xml:space="preserve"><value>قم بتفعيل التحقق بخطوتين لزيادة أمان حسابك</value></data>
+  <data name="AuthenticatorApp" xml:space="preserve"><value>تطبيق المصادقة</value></data>
+  <data name="AddAuthenticator" xml:space="preserve"><value>إضافة تطبيق مصادقة</value></data>
+  
+  <data name="PersonalDataTitle" xml:space="preserve"><value>البيانات الشخصية</value></data>
+  <data name="PersonalDataDesc" xml:space="preserve"><value>يحتوي حسابك على بيانات شخصية قمت بإدخالها. هذه الصفحة تتيح لك تحميل أو حذف بياناتك.</value></data>
+  <data name="DeleteWarning" xml:space="preserve"><value>حذف هذه البيانات سيزيل حسابك بشكل دائم ولا يمكن استرجاعه.</value></data>
+  <data name="Download" xml:space="preserve"><value>تحميل</value></data>
+  <data name="Delete" xml:space="preserve"><value>حذف</value></data>
 </root>
