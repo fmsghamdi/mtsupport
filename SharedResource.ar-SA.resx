@@ -201,4 +201,44 @@
   <data name="Btn_CreateFirst" xml:space="preserve"><value>إنشاء أول تذكرة</value></data>
   
   <data name="Hello" xml:space="preserve"><value>مرحباً</value></data>
+  
+  <!-- Account Management Pages -->
+  <data name="AccountSettings" xml:space="preserve"><value>إعدادات الحساب</value></data>
+  <data name="ManageAccountSettings" xml:space="preserve"><value>إدارة إعدادات حسابك</value></data>
+  <data name="EmailCannotBeChanged" xml:space="preserve"><value>لا يمكن تغيير البريد الإلكتروني</value></data>
+  <data name="PhoneNumber" xml:space="preserve"><value>رقم الهاتف</value></data>
+  <data name="SaveChanges" xml:space="preserve"><value>حفظ التغييرات</value></data>
+  <data name="QuickLinks" xml:space="preserve"><value>روابط سريعة</value></data>
+  <data name="MyTickets" xml:space="preserve"><value>تذاكري</value></data>
+  
+  <!-- Email Management -->
+  <data name="ManageEmail" xml:space="preserve"><value>إدارة البريد الإلكتروني</value></data>
+  <data name="EmailDesc" xml:space="preserve"><value>قم بتغيير بريدك الإلكتروني</value></data>
+  <data name="CurrentEmail" xml:space="preserve"><value>البريد الإلكتروني الحالي</value></data>
+  <data name="NewEmail" xml:space="preserve"><value>البريد الإلكتروني الجديد</value></data>
+  <data name="ChangeEmail" xml:space="preserve"><value>تغيير البريد الإلكتروني</value></data>
+  
+  <!-- Password Management -->
+  <data name="ChangePassword" xml:space="preserve"><value>تغيير كلمة المرور</value></data>
+  <data name="ChangePasswordDesc" xml:space="preserve"><value>قم بتحديث كلمة المرور للحفاظ على أمان حسابك</value></data>
+  <data name="CurrentPassword" xml:space="preserve"><value>كلمة المرور الحالية</value></data>
+  <data name="NewPassword" xml:space="preserve"><value>كلمة المرور الجديدة</value></data>
+  <data name="ConfirmNewPassword" xml:space="preserve"><value>تأكيد كلمة المرور الجديدة</value></data>
+  <data name="UpdatePassword" xml:space="preserve"><value>تحديث كلمة المرور</value></data>
+  
+  <!-- Two Factor Authentication -->
+  <data name="TwoFactorTitle" xml:space="preserve"><value>التحقق بخطوتين</value></data>
+  <data name="TwoFactorDesc" xml:space="preserve"><value>تعزيز أمان حسابك بالتحقق بخطوتين</value></data>
+  <data name="AuthenticatorApp" xml:space="preserve"><value>تطبيق المصادقة</value></data>
+  <data name="AuthenticatorAppDesc" xml:space="preserve"><value>استخدم تطبيق المصادقة للحصول على رموز تحقق مؤقتة</value></data>
+  <data name="TwoFactorEnabled" xml:space="preserve"><value>التحقق بخطوتين مفعّل</value></data>
+  <data name="TwoFactorDisabled" xml:space="preserve"><value>التحقق بخطوتين غير مفعّل</value></data>
+  
+  <!-- Personal Data -->
+  <data name="PersonalDataTitle" xml:space="preserve"><value>البيانات الشخصية</value></data>
+  <data name="PersonalDataDesc" xml:space="preserve"><value>إدارة وتحميل بياناتك الشخصية</value></data>
+  <data name="PersonalDataInfo" xml:space="preserve"><value>يمكنك تحميل أو حذف بياناتك الشخصية من هذه الصفحة</value></data>
+  <data name="DeleteWarning" xml:space="preserve"><value>تحذير: حذف البيانات لا يمكن التراجع عنه!</value></data>
+  <data name="Download" xml:space="preserve"><value>تحميل البيانات</value></data>
+  <data name="Delete" xml:space="preserve"><value>حذف البيانات</value></data>
 </root>
