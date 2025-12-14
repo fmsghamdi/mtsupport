@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MabatSupportSystem")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+baea7a8b26192124ac3de7d94ecea7e05b476b27")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7588eea9eb2f973499b406ffedf387b7c5c38edd")]
 [assembly: System.Reflection.AssemblyProductAttribute("MabatSupportSystem")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MabatSupportSystem")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

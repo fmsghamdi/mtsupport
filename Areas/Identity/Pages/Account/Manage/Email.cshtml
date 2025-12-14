@@ -1,48 +1,50 @@
 @page
-@model EmailModel
+@model MabatSupportSystem.Areas.Identity.Pages.Account.Manage.EmailModel
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> L
 @{
-    ViewData["Title"] = "إدارة البريد الإلكتروني";
+    ViewData["Title"] = L["ManageEmail"];
     Layout = "_ManageLayout";
 }
 
 <div class="card shadow-sm border-0">
     <div class="card-header bg-primary text-white">
         <h5 class="mb-0">
-            <i class="bi bi-envelope me-2"></i>إدارة البريد الإلكتروني
+            <i class="bi bi-envelope me-2"></i>@L["ManageEmail"]
         </h5>
-        <small class="opacity-75">قم بتغيير بريدك الإلكتروني</small>
+        <small class="opacity-75">@L["EmailDesc"]</small>
     </div>
     
     <div class="card-body p-4">
         <partial name="_StatusMessage" for="StatusMessage" />
         
         <form id="email-form" method="post">
-            <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
             
-            <!-- Current Email (Read-only) -->
             <div class="mb-4">
-                <label asp-for="Email" class="form-label fw-bold">
-                    <i class="bi bi-envelope-check me-1"></i>البريد الإلكتروني الحالي
+                <label class="form-label fw-bold">
+                    <i class="bi bi-envelope-check me-1"></i>@L["CurrentEmail"]
                 </label>
                 <input asp-for="Email" class="form-control form-control-lg bg-light" disabled />
             </div>
             
-            <!-- New Email -->
             <div class="mb-4">
                 <label asp-for="Input.NewEmail" class="form-label fw-bold">
-                    <i class="bi bi-envelope-plus me-1"></i>البريد الإلكتروني الجديد
+                    <i class="bi bi-envelope-plus me-1"></i>@L["NewEmail"]
                 </label>
-                <input asp-for="Input.NewEmail" class="form-control form-control-lg" 
-                       placeholder="email@example.com" />
+                <input asp-for="Input.NewEmail" class="form-control form-control-lg" />
                 <span asp-validation-for="Input.NewEmail" class="text-danger small"></span>
             </div>
             
-            <!-- Change Email Button -->
             <div class="d-grid">
-                <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="btn btn-primary btn-lg">
-                    <i class="bi bi-arrow-repeat me-2"></i>تغيير البريد الإلكتروني
+                <button id="change-email-button" type="submit" class="btn btn-primary btn-lg">
+                    <i class="bi bi-arrow-repeat me-2"></i>@L["ChangeEmail"]
                 </button>
             </div>
         </form>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

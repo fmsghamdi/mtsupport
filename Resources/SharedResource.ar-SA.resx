@@ -244,4 +244,10 @@
   <data name="DeleteWarning" xml:space="preserve"><value>حذف هذه البيانات سيزيل حسابك بشكل دائم ولا يمكن استرجاعه.</value></data>
   <data name="Download" xml:space="preserve"><value>تحميل</value></data>
   <data name="Delete" xml:space="preserve"><value>حذف</value></data>
+  
+  <data name="CurrentEmail" xml:space="preserve"><value>البريد الإلكتروني الحالي</value></data>
+  <data name="AuthenticatorAppDesc" xml:space="preserve"><value>استخدم تطبيق المصادقة للحصول على رموز التحقق المؤقتة</value></data>
+  <data name="TwoFactorEnabled" xml:space="preserve"><value>التحقق بخطوتين مفعّل</value></data>
+  <data name="TwoFactorDisabled" xml:space="preserve"><value>التحقق بخطوتين غير مفعّل</value></data>
+  <data name="PersonalDataInfo" xml:space="preserve"><value>يمكنك تحميل أو حذف بياناتك الشخصية من هذه الصفحة</value></data>
 </root>

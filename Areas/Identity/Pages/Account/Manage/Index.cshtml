@@ -1,18 +1,18 @@
 @page
 @model MabatSupportSystem.Areas.Identity.Pages.Account.Manage.IndexModel
 @using Microsoft.Extensions.Localization
-@inject IStringLocalizer<SharedResource> SharedLocalizer
+@inject IStringLocalizer<SharedResource> L
 @{
-    ViewData["Title"] = "الملف الشخصي";
+    ViewData["Title"] = L["Profile"];
     Layout = "_ManageLayout";
 }
 
 <div class="card shadow-sm border-0">
     <div class="card-header bg-primary text-white">
         <h5 class="mb-0">
-            <i class="bi bi-person-circle me-2"></i>الملف الشخصي
+            <i class="bi bi-person-circle me-2"></i>@L["Profile"]
         </h5>
-        <small class="opacity-75">إدارة إعدادات حسابك</small>
+        <small class="opacity-75">@L["ManageAccountSettings"]</small>
     </div>
     
     <div class="card-body p-4">
@@ -24,36 +24,34 @@
             <!-- Email/Username (Read-only) -->
             <div class="mb-4">
                 <label class="form-label fw-bold">
-                    <i class="bi bi-envelope me-1"></i>البريد الإلكتروني
+                    <i class="bi bi-envelope me-1"></i>@L["Email"]
                 </label>
                 <input asp-for="Username" class="form-control form-control-lg bg-light" disabled />
-                <small class="text-muted">لا يمكن تغيير البريد الإلكتروني</small>
+                <small class="text-muted">@L["EmailCannotBeChanged"]</small>
             </div>
             
             <!-- Full Name -->
             <div class="mb-4">
                 <label asp-for="Input.FullName" class="form-label fw-bold">
-                    <i class="bi bi-person me-1"></i>الاسم الكامل
+                    <i class="bi bi-person me-1"></i>@L["FullName"]
                 </label>
-                <input asp-for="Input.FullName" class="form-control form-control-lg" 
-                       placeholder="أدخل اسمك الكامل" />
+                <input asp-for="Input.FullName" class="form-control form-control-lg" />
                 <span asp-validation-for="Input.FullName" class="text-danger small"></span>
             </div>
 
             <!-- Phone Number -->
             <div class="mb-4">
                 <label asp-for="Input.PhoneNumber" class="form-label fw-bold">
-                    <i class="bi bi-telephone me-1"></i>رقم الهاتف
+                    <i class="bi bi-telephone me-1"></i>@L["PhoneNumber"]
                 </label>
-                <input asp-for="Input.PhoneNumber" class="form-control form-control-lg" 
-                       placeholder="أدخل رقم هاتفك" />
+                <input asp-for="Input.PhoneNumber" class="form-control form-control-lg" />
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger small"></span>
             </div>
             
             <!-- Save Button -->
             <div class="d-grid">
                 <button id="update-profile-button" type="submit" class="btn btn-primary btn-lg">
-                    <i class="bi bi-check-circle me-2"></i>حفظ التغييرات
+                    <i class="bi bi-check-circle me-2"></i>@L["SaveChanges"]
                 </button>
             </div>
         </form>
@@ -63,16 +61,16 @@
 <!-- Quick Links -->
 <div class="card shadow-sm border-0 mt-4">
     <div class="card-body">
-        <h6 class="text-muted mb-3">روابط سريعة</h6>
+        <h6 class="text-muted mb-3">@L["QuickLinks"]</h6>
         <div class="d-flex flex-wrap gap-2">
             <a asp-page="/Tickets/Index" class="btn btn-outline-primary">
-                <i class="bi bi-inbox me-1"></i>تذاكري
+                <i class="bi bi-inbox me-1"></i>@L["MyTickets"]
             </a>
             <a asp-page="/Tickets/Create" class="btn btn-outline-success">
-                <i class="bi bi-plus-circle me-1"></i>إنشاء تذكرة
+                <i class="bi bi-plus-circle me-1"></i>@L["CreateTicket"]
             </a>
             <a asp-page="/Index" class="btn btn-outline-secondary">
-                <i class="bi bi-house me-1"></i>الرئيسية
+                <i class="bi bi-house me-1"></i>@L["Home"]
             </a>
         </div>
     </div>
