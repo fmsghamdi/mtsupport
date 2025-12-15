@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MabatSupportSystem")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute(" ")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4f7e4910e2a3014497c85a40684cb736795965bc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e6c4bbee69b55cf3f62e4d368f39d226f30c3a61")]
 [assembly: System.Reflection.AssemblyProductAttribute("MabatSupportSystem")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MabatSupportSystem")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
