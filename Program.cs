@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // =========================================================
 // 1. إعداد نظام الترجمة
 // =========================================================
-builder.Services.AddLocalization();
+builder.Services.AddLocalization(options => options.ResourcesPath = "");
 
 // Add services to the container.
 builder.Services.AddRazorPages()
