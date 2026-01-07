@@ -250,4 +250,86 @@
   <data name="TwoFactorEnabled" xml:space="preserve"><value>التحقق بخطوتين مفعّل</value></data>
   <data name="TwoFactorDisabled" xml:space="preserve"><value>التحقق بخطوتين غير مفعّل</value></data>
   <data name="PersonalDataInfo" xml:space="preserve"><value>يمكنك تحميل أو حذف بياناتك الشخصية من هذه الصفحة</value></data>
+  
+  <!-- Admin Panel -->
+  <data name="ControlPanel" xml:space="preserve"><value>لوحة التحكم</value></data>
+  <data name="AdminPanel_Title" xml:space="preserve"><value>لوحة التحكم</value></data>
+  <data name="AdminPanel_Subtitle" xml:space="preserve"><value>إدارة النظام والمستخدمين</value></data>
+  <data name="TotalTickets" xml:space="preserve"><value>إجمالي التذاكر</value></data>
+  <data name="OpenTickets" xml:space="preserve"><value>تذاكر مفتوحة</value></data>
+  <data name="TotalUsers" xml:space="preserve"><value>المستخدمين</value></data>
+  <data name="TotalHotels" xml:space="preserve"><value>الفنادق</value></data>
+  <data name="QuickActions" xml:space="preserve"><value>إجراءات سريعة</value></data>
+  <data name="ManageUsers" xml:space="preserve"><value>إدارة المستخدمين</value></data>
+  <data name="ManageHotels" xml:space="preserve"><value>إدارة الفنادق</value></data>
+  <data name="AddUser" xml:space="preserve"><value>إضافة مستخدم</value></data>
+  <data name="AddHotel" xml:space="preserve"><value>إضافة فندق</value></data>
+  <data name="UsersByType" xml:space="preserve"><value>المستخدمين حسب النوع</value></data>
+  <data name="RecentTickets" xml:space="preserve"><value>أحدث التذاكر</value></data>
+  <data name="ViewAll" xml:space="preserve"><value>عرض الكل</value></data>
+  <data name="UserType_Admin" xml:space="preserve"><value>مدير النظام</value></data>
+  <data name="UserType_MabatSupport" xml:space="preserve"><value>فريق دعم مبات</value></data>
+  <data name="UserType_HotelSupport" xml:space="preserve"><value>فريق دعم الفنادق</value></data>
+  <data name="UserType_HotelOwner" xml:space="preserve"><value>أصحاب الفنادق</value></data>
+  <data name="UserType_EndUser" xml:space="preserve"><value>المستخدمين النهائيين</value></data>
+  
+  <!-- Users Management -->
+  <data name="UsersManagement" xml:space="preserve"><value>إدارة المستخدمين</value></data>
+  <data name="UsersManagement_Subtitle" xml:space="preserve"><value>عرض وإدارة جميع المستخدمين في النظام</value></data>
+  <data name="SearchPlaceholder" xml:space="preserve"><value>بحث بالاسم أو البريد...</value></data>
+  <data name="AllTypes" xml:space="preserve"><value>جميع الأنواع</value></data>
+  <data name="AllStatuses" xml:space="preserve"><value>الكل</value></data>
+  <data name="Active" xml:space="preserve"><value>نشط</value></data>
+  <data name="Inactive" xml:space="preserve"><value>غير نشط</value></data>
+  <data name="Filter" xml:space="preserve"><value>فلترة</value></data>
+  <data name="User" xml:space="preserve"><value>المستخدم</value></data>
+  <data name="UserType" xml:space="preserve"><value>النوع</value></data>
+  <data name="Hotel" xml:space="preserve"><value>الفندق</value></data>
+  <data name="Status" xml:space="preserve"><value>الحالة</value></data>
+  <data name="RegistrationDate" xml:space="preserve"><value>تاريخ التسجيل</value></data>
+  <data name="Actions" xml:space="preserve"><value>إجراءات</value></data>
+  <data name="NoName" xml:space="preserve"><value>بدون اسم</value></data>
+  <data name="NoUsers" xml:space="preserve"><value>لا يوجد مستخدمين</value></data>
+  <data name="ConfirmDelete" xml:space="preserve"><value>تأكيد الحذف</value></data>
+  <data name="ConfirmDeleteUser" xml:space="preserve"><value>هل أنت متأكد من حذف المستخدم</value></data>
+  <data name="DeleteWarningAction" xml:space="preserve"><value>هذا الإجراء لا يمكن التراجع عنه</value></data>
+  <data name="Cancel" xml:space="preserve"><value>إلغاء</value></data>
+  
+  <!-- Add/Edit User -->
+  <data name="AddNewUser" xml:space="preserve"><value>إضافة مستخدم جديد</value></data>
+  <data name="EditUser" xml:space="preserve"><value>تعديل المستخدم</value></data>
+  <data name="SelectHotel" xml:space="preserve"><value>-- اختر الفندق --</value></data>
+  <data name="ActiveAccount" xml:space="preserve"><value>حساب نشط</value></data>
+  <data name="Back" xml:space="preserve"><value>رجوع</value></data>
+  <data name="CreateUser" xml:space="preserve"><value>إنشاء المستخدم</value></data>
+  <data name="SaveChanges" xml:space="preserve"><value>حفظ التغييرات</value></data>
+  
+  <!-- Hotels Management -->
+  <data name="HotelsManagement" xml:space="preserve"><value>إدارة الفنادق</value></data>
+  <data name="HotelsManagement_Subtitle" xml:space="preserve"><value>عرض وإدارة الفنادق المسجلة في النظام</value></data>
+  <data name="TotalHotelsCount" xml:space="preserve"><value>إجمالي الفنادق</value></data>
+  <data name="ActiveHotels" xml:space="preserve"><value>فنادق نشطة</value></data>
+  <data name="InactiveHotels" xml:space="preserve"><value>فنادق معطلة</value></data>
+  <data name="NoHotels" xml:space="preserve"><value>لا يوجد فنادق مسجلة</value></data>
+  <data name="StartAddHotel" xml:space="preserve"><value>ابدأ بإضافة فندق جديد للنظام</value></data>
+  <data name="SupportStaff" xml:space="preserve"><value>موظفي الدعم</value></data>
+  <data name="NoSupportStaff" xml:space="preserve"><value>لا يوجد موظفين</value></data>
+  <data name="More" xml:space="preserve"><value>المزيد</value></data>
+  <data name="Edit" xml:space="preserve"><value>تعديل</value></data>
+  <data name="CreatedDate" xml:space="preserve"><value>تاريخ الإنشاء</value></data>
+  <data name="ConfirmDeleteHotel" xml:space="preserve"><value>هل أنت متأكد من حذف الفندق</value></data>
+  <data name="DeleteHotelWarning" xml:space="preserve"><value>سيتم إلغاء ربط جميع المستخدمين المرتبطين بهذا الفندق</value></data>
+  
+  <!-- Add/Edit Hotel -->
+  <data name="AddNewHotel" xml:space="preserve"><value>إضافة فندق جديد</value></data>
+  <data name="EditHotel" xml:space="preserve"><value>تعديل الفندق</value></data>
+  <data name="HotelNameAr" xml:space="preserve"><value>اسم الفندق (عربي)</value></data>
+  <data name="HotelNameEn" xml:space="preserve"><value>اسم الفندق (إنجليزي)</value></data>
+  <data name="City" xml:space="preserve"><value>المدينة</value></data>
+  <data name="Phone" xml:space="preserve"><value>رقم الهاتف</value></data>
+  <data name="Address" xml:space="preserve"><value>العنوان</value></data>
+  <data name="HotelOwner" xml:space="preserve"><value>صاحب الفندق (اختياري)</value></data>
+  <data name="SelectOwner" xml:space="preserve"><value>-- اختر صاحب الفندق --</value></data>
+  <data name="ActiveHotel" xml:space="preserve"><value>فندق نشط</value></data>
+  <data name="CreateHotel" xml:space="preserve"><value>إضافة الفندق</value></data>
 </root>

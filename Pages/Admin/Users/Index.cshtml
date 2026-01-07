@@ -1,0 +1,200 @@
+@page
+@model MabatSupportSystem.Pages.Admin.Users.IndexModel
+@inject IStringLocalizer<SharedResource> Localizer
+@{
+    ViewData["Title"] = Localizer["UsersManagement"];
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="fw-bold text-primary mb-1">
+                <i class="bi bi-people me-2"></i>@Localizer["UsersManagement"]
+            </h1>
+            <p class="text-muted mb-0">@Localizer["UsersManagement_Subtitle"]</p>
+        </div>
+        <a asp-page="Create" class="btn btn-primary shadow-sm px-4 rounded-pill">
+            <i class="bi bi-person-plus me-2"></i>@Localizer["AddUser"]
+        </a>
+    </div>
+
+    <!-- Filters -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body p-4 bg-light rounded-3">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                        <input type="text" name="SearchTerm" value="@Model.SearchTerm" class="form-control" placeholder="@Localizer["SearchPlaceholder"]">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select name="UserType" class="form-select">
+                        <option value="">@Localizer["AllTypes"]</option>
+                        <option value="EndUser" selected="@(Model.UserTypeFilter == "EndUser")">@Localizer["UserType_EndUser"]</option>
+                        <option value="HotelOwner" selected="@(Model.UserTypeFilter == "HotelOwner")">@Localizer["UserType_HotelOwner"]</option>
+                        <option value="HotelSupport" selected="@(Model.UserTypeFilter == "HotelSupport")">@Localizer["UserType_HotelSupport"]</option>
+                        <option value="MabatSupport" selected="@(Model.UserTypeFilter == "MabatSupport")">@Localizer["UserType_MabatSupport"]</option>
+                        <option value="Admin" selected="@(Model.UserTypeFilter == "Admin")">@Localizer["UserType_Admin"]</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="Status" class="form-select">
+                        <option value="">@Localizer["AllStatuses"]</option>
+                        <option value="active" selected="@(Model.StatusFilter == "active")">@Localizer["Active"]</option>
+                        <option value="inactive" selected="@(Model.StatusFilter == "inactive")">@Localizer["Inactive"]</option>
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary flex-grow-1">
+                        <i class="bi bi-funnel me-1"></i>@Localizer["Filter"]
+                    </button>
+                    <a asp-page="Index" class="btn btn-outline-secondary">
+                        <i class="bi bi-x-lg"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Users Table -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4 py-3">@Localizer["User"]</th>
+                            <th class="py-3">@Localizer["Email"]</th>
+                            <th class="py-3">@Localizer["UserType"]</th>
+                            <th class="py-3">@Localizer["Hotel"]</th>
+                            <th class="py-3">@Localizer["Status"]</th>
+                            <th class="py-3">@Localizer["RegistrationDate"]</th>
+                            <th class="text-end pe-4 py-3">@Localizer["Actions"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.Users.Any())
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center py-5 text-muted">
+                                    <i class="bi bi-inbox display-4 d-block mb-3 opacity-25"></i>
+                                    @Localizer["NoUsers"]
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var user in Model.Users)
+                            {
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center">
+                                            <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                                <i class="bi bi-person"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold">@(user.FullName ?? Localizer["NoName"].Value)</div>
+                                                <small class="text-muted">@user.UserName</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>@user.Email</td>
+                                    <td>
+                                        @{
+                                            var (typeClass, typeKey) = user.UserType switch
+                                            {
+                                                MabatSupportSystem.Models.UserType.Admin => ("danger", "UserType_Admin"),
+                                                MabatSupportSystem.Models.UserType.MabatSupport => ("primary", "UserType_MabatSupport"),
+                                                MabatSupportSystem.Models.UserType.HotelSupport => ("info", "UserType_HotelSupport"),
+                                                MabatSupportSystem.Models.UserType.HotelOwner => ("success", "UserType_HotelOwner"),
+                                                _ => ("secondary", "UserType_EndUser")
+                                            };
+                                        }
+                                        <span class="badge bg-@typeClass">@Localizer[typeKey]</span>
+                                    </td>
+                                    <td>
+                                        @if (user.Hotel != null)
+                                        {
+                                            <span class="badge bg-light text-dark">@user.Hotel.Name</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">-</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (user.IsActive)
+                                        {
+                                            <span class="badge bg-success bg-opacity-10 text-success">@Localizer["Active"]</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary bg-opacity-10 text-secondary">@Localizer["Inactive"]</span>
+                                        }
+                                    </td>
+                                    <td class="text-muted small">
+                                        @if (user.CreatedDate > new DateTime(1900, 1, 1))
+                                        {
+                                            @user.CreatedDate.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">-</span>
+                                        }
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <div class="btn-group">
+                                            <a asp-page="Edit" asp-route-id="@user.Id" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" 
+                                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                    data-user-id="@user.Id" data-user-name="@user.FullName">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">@Localizer["ConfirmDelete"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center py-4">
+                <i class="bi bi-exclamation-triangle text-warning display-3 d-block mb-3"></i>
+                <p>@Localizer["ConfirmDeleteUser"] <strong id="deleteUserName"></strong>?</p>
+                <small class="text-muted">@Localizer["DeleteWarningAction"]</small>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                <form method="post" asp-page-handler="Delete" id="deleteForm">
+                    <input type="hidden" name="id" id="deleteUserId" />
+                    <button type="submit" class="btn btn-danger">@Localizer["Delete"]</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('deleteModal').addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            document.getElementById('deleteUserId').value = button.getAttribute('data-user-id');
+            document.getElementById('deleteUserName').textContent = button.getAttribute('data-user-name');
+        });
+    </script>
+}

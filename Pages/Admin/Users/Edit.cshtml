@@ -1,0 +1,94 @@
+@page "{id}"
+@model MabatSupportSystem.Pages.Admin.Users.EditModel
+@inject IStringLocalizer<SharedResource> Localizer
+@{
+    ViewData["Title"] = Localizer["EditUser"];
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-warning text-dark py-3">
+                    <h4 class="mb-0">
+                        <i class="bi bi-pencil-square me-2"></i>@Localizer["EditUser"]
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        <input type="hidden" asp-for="Input.Id" />
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="Input.FullName" class="form-label fw-bold">@Localizer["FullName"]</label>
+                                <input asp-for="Input.FullName" class="form-control" />
+                                <span asp-validation-for="Input.FullName" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Input.Email" class="form-label fw-bold">@Localizer["Email"]</label>
+                                <input asp-for="Input.Email" class="form-control" readonly />
+                                <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Input.UserType" class="form-label fw-bold">@Localizer["UserType"]</label>
+                                <select asp-for="Input.UserType" class="form-select" id="userTypeSelect">
+                                    <option value="0">@Localizer["UserType_EndUser"]</option>
+                                    <option value="1">@Localizer["UserType_HotelOwner"]</option>
+                                    <option value="2">@Localizer["UserType_HotelSupport"]</option>
+                                    <option value="3">@Localizer["UserType_MabatSupport"]</option>
+                                    <option value="4">@Localizer["UserType_Admin"]</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6" id="hotelSelectContainer">
+                                <label asp-for="Input.HotelId" class="form-label fw-bold">@Localizer["Hotel"]</label>
+                                <select asp-for="Input.HotelId" asp-items="Model.Hotels" class="form-select">
+                                    <option value="">@Localizer["SelectHotel"]</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Input.PhoneNumber" class="form-label fw-bold">@Localizer["PhoneNumber"]</label>
+                                <input asp-for="Input.PhoneNumber" class="form-control" />
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input asp-for="Input.IsActive" class="form-check-input" type="checkbox" />
+                                    <label asp-for="Input.IsActive" class="form-check-label">@Localizer["ActiveAccount"]</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-page="Index" class="btn btn-outline-secondary px-4">
+                                <i class="bi bi-arrow-right me-2"></i>@Localizer["Back"]
+                            </a>
+                            <button type="submit" class="btn btn-warning px-4">
+                                <i class="bi bi-check-lg me-2"></i>@Localizer["SaveChanges"]
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.getElementById('userTypeSelect').addEventListener('change', function() {
+            var hotelContainer = document.getElementById('hotelSelectContainer');
+            var selectedValue = this.value;
+            // HotelOwner = 1, HotelSupport = 2 (نظهر حقل الفندق لهذين النوعين)
+            if (selectedValue === '1' || selectedValue === '2') {
+                hotelContainer.style.display = 'block';
+            } else {
+                hotelContainer.style.display = 'none';
+            }
+        });
+        // تفعيل عند تحميل الصفحة
+        document.getElementById('userTypeSelect').dispatchEvent(new Event('change'));
+    </script>
+}

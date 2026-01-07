@@ -647,4 +647,274 @@
   <data name="Delete" xml:space="preserve">
     <value>Delete Data</value>
   </data>
+  
+  <!-- ==================== ADMIN PANEL ==================== -->
+  <data name="AdminPanel" xml:space="preserve">
+    <value>Control Panel</value>
+  </data>
+  <data name="AdminPanel_Title" xml:space="preserve">
+    <value>Control Panel</value>
+  </data>
+  <data name="AdminPanel_Subtitle" xml:space="preserve">
+    <value>Manage system and users</value>
+  </data>
+  <data name="TotalHotels" xml:space="preserve">
+    <value>Total Hotels</value>
+  </data>
+  <data name="TotalUsers" xml:space="preserve">
+    <value>Total Users</value>
+  </data>
+  <data name="OpenTickets" xml:space="preserve">
+    <value>Open Tickets</value>
+  </data>
+  <data name="TotalTickets" xml:space="preserve">
+    <value>Total Tickets</value>
+  </data>
+  <data name="UsersByType" xml:space="preserve">
+    <value>Users by Type</value>
+  </data>
+  <data name="UserType_MabatSupport" xml:space="preserve">
+    <value>Mabat Support</value>
+  </data>
+  <data name="UserType_Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="UserType_HotelSupport" xml:space="preserve">
+    <value>Hotel Support</value>
+  </data>
+  <data name="UserType_EndUser" xml:space="preserve">
+    <value>End User</value>
+  </data>
+  <data name="UserType_HotelOwner" xml:space="preserve">
+    <value>Hotel Owner</value>
+  </data>
+  <data name="QuickActions" xml:space="preserve">
+    <value>Quick Actions</value>
+  </data>
+  <data name="ManageHotels" xml:space="preserve">
+    <value>Manage Hotels</value>
+  </data>
+  <data name="ManageUsers" xml:space="preserve">
+    <value>Manage Users</value>
+  </data>
+  <data name="AddHotel" xml:space="preserve">
+    <value>Add Hotel</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Add User</value>
+  </data>
+  <data name="RecentTickets" xml:space="preserve">
+    <value>Recent Tickets</value>
+  </data>
+  <data name="ViewAll" xml:space="preserve">
+    <value>View All</value>
+  </data>
+  <data name="NoTicketsYet" xml:space="preserve">
+    <value>No tickets yet</value>
+  </data>
+  <data name="RecentUsers" xml:space="preserve">
+    <value>Recent Users</value>
+  </data>
+  <data name="NoUsersYet" xml:space="preserve">
+    <value>No users yet</value>
+  </data>
+  
+  <!-- ==================== USERS MANAGEMENT ==================== -->
+  <data name="UsersManagement" xml:space="preserve">
+    <value>Users Management</value>
+  </data>
+  <data name="UsersManagement_Subtitle" xml:space="preserve">
+    <value>View and manage all users in the system</value>
+  </data>
+  <data name="TotalUsersCount" xml:space="preserve">
+    <value>Total Users</value>
+  </data>
+  <data name="ActiveUsers" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="InactiveUsers" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="NoUsers" xml:space="preserve">
+    <value>No Users</value>
+  </data>
+  <data name="StartAddUsers" xml:space="preserve">
+    <value>Start adding new users</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>User Type</value>
+  </data>
+  <data name="Hotel" xml:space="preserve">
+    <value>Hotel</value>
+  </data>
+  <data name="JoinDate" xml:space="preserve">
+    <value>Join Date</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Inactive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="NoHotel" xml:space="preserve">
+    <value>No Hotel</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Confirm Delete</value>
+  </data>
+  <data name="ConfirmDeleteUser" xml:space="preserve">
+    <value>Are you sure you want to delete user</value>
+  </data>
+  <data name="DeleteUserWarning" xml:space="preserve">
+    <value>This action cannot be undone</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  
+  <!-- ==================== CREATE USER ==================== -->
+  <data name="CreateUser" xml:space="preserve">
+    <value>Add New User</value>
+  </data>
+  <data name="CreateUser_Subtitle" xml:space="preserve">
+    <value>Enter new user information</value>
+  </data>
+  <data name="UserBasicInfo" xml:space="preserve">
+    <value>Basic Information</value>
+  </data>
+  <data name="UserSettings" xml:space="preserve">
+    <value>User Settings</value>
+  </data>
+  <data name="CreateUserBtn" xml:space="preserve">
+    <value>Create User</value>
+  </data>
+  <data name="SelectHotel" xml:space="preserve">
+    <value>-- Select Hotel --</value>
+  </data>
+  <data name="SelectUserType" xml:space="preserve">
+    <value>-- Select User Type --</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  
+  <!-- ==================== EDIT USER ==================== -->
+  <data name="EditUser" xml:space="preserve">
+    <value>Edit User</value>
+  </data>
+  <data name="EditUser_Subtitle" xml:space="preserve">
+    <value>Update user information</value>
+  </data>
+  <data name="UpdateUser" xml:space="preserve">
+    <value>Update User</value>
+  </data>
+  <data name="NewPasswordOptional" xml:space="preserve">
+    <value>New Password (Optional)</value>
+  </data>
+  <data name="LeaveEmptyPassword" xml:space="preserve">
+    <value>Leave empty to keep current password</value>
+  </data>
+  
+  <!-- ==================== HOTELS MANAGEMENT ==================== -->
+  <data name="HotelsManagement" xml:space="preserve">
+    <value>Hotels Management</value>
+  </data>
+  <data name="HotelsManagement_Subtitle" xml:space="preserve">
+    <value>View and manage all hotels in the system</value>
+  </data>
+  <data name="TotalHotelsCount" xml:space="preserve">
+    <value>Total Hotels</value>
+  </data>
+  <data name="ActiveHotels" xml:space="preserve">
+    <value>Active Hotels</value>
+  </data>
+  <data name="InactiveHotels" xml:space="preserve">
+    <value>Inactive Hotels</value>
+  </data>
+  <data name="NoHotels" xml:space="preserve">
+    <value>No Hotels</value>
+  </data>
+  <data name="StartAddHotel" xml:space="preserve">
+    <value>Start adding new hotels</value>
+  </data>
+  <data name="HotelOwner" xml:space="preserve">
+    <value>Hotel Owner</value>
+  </data>
+  <data name="SupportStaff" xml:space="preserve">
+    <value>Support Staff</value>
+  </data>
+  <data name="ConfirmDeleteHotel" xml:space="preserve">
+    <value>Are you sure you want to delete hotel</value>
+  </data>
+  <data name="DeleteHotelWarning" xml:space="preserve">
+    <value>All data associated with this hotel will be deleted</value>
+  </data>
+  
+  <!-- ==================== CREATE HOTEL ==================== -->
+  <data name="CreateHotel" xml:space="preserve">
+    <value>Add New Hotel</value>
+  </data>
+  <data name="CreateHotel_Subtitle" xml:space="preserve">
+    <value>Enter new hotel information</value>
+  </data>
+  <data name="HotelBasicInfo" xml:space="preserve">
+    <value>Basic Information</value>
+  </data>
+  <data name="HotelName" xml:space="preserve">
+    <value>Hotel Name (Arabic)</value>
+  </data>
+  <data name="HotelNameEn" xml:space="preserve">
+    <value>Hotel Name (English)</value>
+  </data>
+  <data name="HotelContactInfo" xml:space="preserve">
+    <value>Contact Information</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="HotelSettings" xml:space="preserve">
+    <value>Hotel Settings</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Owner</value>
+  </data>
+  <data name="SelectOwner" xml:space="preserve">
+    <value>-- Select Owner --</value>
+  </data>
+  <data name="CreateHotelBtn" xml:space="preserve">
+    <value>Create Hotel</value>
+  </data>
+  <data name="AddNewHotel" xml:space="preserve">
+    <value>Add New Hotel</value>
+  </data>
+  <data name="AddNewUser" xml:space="preserve">
+    <value>Add New User</value>
+  </data>
+  <data name="HotelNameAr" xml:space="preserve">
+    <value>Hotel Name (Arabic)</value>
+  </data>
+  <data name="ActiveHotel" xml:space="preserve">
+    <value>Active Hotel</value>
+  </data>
+  <data name="ActiveAccount" xml:space="preserve">
+    <value>Active Account</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
 </root>

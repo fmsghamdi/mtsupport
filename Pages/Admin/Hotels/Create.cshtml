@@ -1,0 +1,80 @@
+@page
+@model MabatSupportSystem.Pages.Admin.Hotels.CreateModel
+@inject IStringLocalizer<SharedResource> Localizer
+@{
+    ViewData["Title"] = Localizer["AddNewHotel"];
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-info text-white py-3">
+                    <h4 class="mb-0">
+                        <i class="bi bi-building-add me-2"></i>@Localizer["AddNewHotel"]
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="Hotel.Name" class="form-label fw-bold">@Localizer["HotelNameAr"]</label>
+                                <input asp-for="Hotel.Name" class="form-control" placeholder="@Localizer["HotelNameAr"]" />
+                                <span asp-validation-for="Hotel.Name" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Hotel.NameEn" class="form-label fw-bold">@Localizer["HotelNameEn"]</label>
+                                <input asp-for="Hotel.NameEn" class="form-control" placeholder="@Localizer["HotelNameEn"]" />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Hotel.City" class="form-label fw-bold">@Localizer["City"]</label>
+                                <input asp-for="Hotel.City" class="form-control" placeholder="@Localizer["City"]" />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Hotel.Phone" class="form-label fw-bold">@Localizer["Phone"]</label>
+                                <input asp-for="Hotel.Phone" class="form-control" />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Hotel.Email" class="form-label fw-bold">@Localizer["Email"]</label>
+                                <input asp-for="Hotel.Email" class="form-control" type="email" />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Hotel.OwnerId" class="form-label fw-bold">@Localizer["HotelOwner"]</label>
+                                <select asp-for="Hotel.OwnerId" asp-items="Model.Owners" class="form-select">
+                                    <option value="">@Localizer["SelectOwner"]</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label asp-for="Hotel.Address" class="form-label fw-bold">@Localizer["Address"]</label>
+                                <textarea asp-for="Hotel.Address" class="form-control" rows="2"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input asp-for="Hotel.IsActive" class="form-check-input" type="checkbox" checked />
+                                    <label asp-for="Hotel.IsActive" class="form-check-label">@Localizer["ActiveHotel"]</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-page="Index" class="btn btn-outline-secondary px-4">
+                                <i class="bi bi-arrow-right me-2"></i>@Localizer["Back"]
+                            </a>
+                            <button type="submit" class="btn btn-info text-white px-4">
+                                <i class="bi bi-check-lg me-2"></i>@Localizer["CreateHotel"]
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

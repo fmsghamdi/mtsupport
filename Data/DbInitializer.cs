@@ -31,7 +31,11 @@ public static class DbInitializer
             {
                 UserName = adminEmail,
                 Email = adminEmail,
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                FullName = "مدير النظام",
+                UserType = UserType.Admin,
+                IsActive = true,
+                CreatedDate = DateTime.UtcNow
             };
 
             // كلمة المرور يجب أن تكون قوية (حرف كبير، صغير، رقم، رمز)
@@ -40,6 +44,18 @@ public static class DbInitializer
             if (createPowerUser.Succeeded)
             {
                 await userManager.AddToRoleAsync(admin, "Admin");
+            }
+        }
+        else
+        {
+            // تحديث المستخدم الموجود إذا كان تاريخ الإنشاء غير صالح
+            if (adminUser.CreatedDate < new DateTime(1900, 1, 1))
+            {
+                adminUser.CreatedDate = DateTime.UtcNow;
+                adminUser.UserType = UserType.Admin;
+                adminUser.IsActive = true;
+                adminUser.FullName = adminUser.FullName ?? "مدير النظام";
+                await userManager.UpdateAsync(adminUser);
             }
         }
     }

@@ -19,17 +19,82 @@ public class MabatSupportDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Ticket> Tickets { get; set; }
     public DbSet<TicketCategory> TicketCategories { get; set; }
     public DbSet<TicketResponse> TicketResponses { get; set; }
+    public DbSet<Hotel> Hotels { get; set; }
+    public DbSet<Notification> Notifications { get; set; }
+    public DbSet<TicketRating> TicketRatings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        // Configure Ticket entity
+        // ========== Configure ApplicationUser ==========
+        modelBuilder.Entity<ApplicationUser>(entity =>
+        {
+            entity.Property(e => e.UserType)
+                .HasConversion<int>();
+
+            entity.Property(e => e.FullName)
+                .HasMaxLength(200);
+
+            entity.Property(e => e.ProfileImageUrl)
+                .HasMaxLength(500);
+
+            // Relationship with Hotel
+            entity.HasOne(u => u.Hotel)
+                .WithMany(h => h.SupportTeam)
+                .HasForeignKey(u => u.HotelId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            entity.HasIndex(e => e.UserType);
+            entity.HasIndex(e => e.HotelId);
+        });
+
+        // ========== Configure Hotel ==========
+        modelBuilder.Entity<Hotel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Id)
+                .UseIdentityColumn();
+
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(e => e.NameEn)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(e => e.Address)
+                .HasMaxLength(500);
+
+            entity.Property(e => e.City)
+                .HasMaxLength(100);
+
+            entity.Property(e => e.Phone)
+                .HasMaxLength(50);
+
+            entity.Property(e => e.Email)
+                .HasMaxLength(200);
+
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            // Owner relationship
+            entity.HasOne(h => h.Owner)
+                .WithMany()
+                .HasForeignKey(h => h.OwnerId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            entity.HasIndex(e => e.Name);
+            entity.HasIndex(e => e.IsActive);
+        });
+
+        // ========== Configure Ticket ==========
         modelBuilder.Entity<Ticket>(entity =>
         {
             entity.HasKey(e => e.Id);
             
-            // PostgreSQL-specific: Use identity column for auto-increment
             entity.Property(e => e.Id)
                 .UseIdentityColumn();
 
@@ -41,7 +106,6 @@ public class MabatSupportDbContext : IdentityDbContext<ApplicationUser>
                 .IsRequired()
                 .HasMaxLength(2000);
 
-            // PostgreSQL-specific: Store enums as integers
             entity.Property(e => e.Status)
                 .IsRequired()
                 .HasConversion<int>();
@@ -52,7 +116,7 @@ public class MabatSupportDbContext : IdentityDbContext<ApplicationUser>
 
             entity.Property(e => e.CreatedDate)
                 .IsRequired()
-                .HasDefaultValueSql("CURRENT_TIMESTAMP"); // Works for both PostgreSQL and SQLite
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             entity.Property(e => e.UserId)
                 .IsRequired()
@@ -64,20 +128,43 @@ public class MabatSupportDbContext : IdentityDbContext<ApplicationUser>
             entity.Property(e => e.BookingReferenceId)
                 .HasMaxLength(100);
 
-            // Configure relationship with Category
+            entity.Property(e => e.InternalNotes)
+                .HasMaxLength(2000);
+
+            // Relationship with Category
             entity.HasOne(t => t.Category)
                 .WithMany(c => c.Tickets)
                 .HasForeignKey(t => t.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Indexes for better query performance
+            // Relationship with User (Creator)
+            entity.HasOne(t => t.ApplicationUser)
+                .WithMany(u => u.Tickets)
+                .HasForeignKey(t => t.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Relationship with Assigned User
+            entity.HasOne(t => t.AssignedTo)
+                .WithMany(u => u.AssignedTickets)
+                .HasForeignKey(t => t.AssignedToId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            // Relationship with Hotel
+            entity.HasOne(t => t.Hotel)
+                .WithMany(h => h.Tickets)
+                .HasForeignKey(t => t.HotelId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            // Indexes
             entity.HasIndex(e => e.Status);
             entity.HasIndex(e => e.UserId);
+            entity.HasIndex(e => e.AssignedToId);
+            entity.HasIndex(e => e.HotelId);
             entity.HasIndex(e => e.BookingReferenceId);
             entity.HasIndex(e => e.CreatedDate);
         });
 
-        // Configure TicketCategory entity
+        // ========== Configure TicketCategory ==========
         modelBuilder.Entity<TicketCategory>(entity =>
         {
             entity.HasKey(e => e.Id);
@@ -96,7 +183,7 @@ public class MabatSupportDbContext : IdentityDbContext<ApplicationUser>
                 .IsUnique();
         });
 
-        // Configure TicketResponse entity
+        // ========== Configure TicketResponse ==========
         modelBuilder.Entity<TicketResponse>(entity =>
         {
             entity.HasKey(e => e.Id);
@@ -123,18 +210,108 @@ public class MabatSupportDbContext : IdentityDbContext<ApplicationUser>
                 .IsRequired()
                 .HasDefaultValue(false);
 
-            // Configure relationship with Ticket
+            // Relationship with Ticket
             entity.HasOne(r => r.Ticket)
                 .WithMany(t => t.Responses)
                 .HasForeignKey(r => r.TicketId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Index for better query performance
             entity.HasIndex(e => e.TicketId);
             entity.HasIndex(e => e.CreatedDate);
         });
 
-        // Seed initial categories specific to Mabat hotel booking system
+        // ========== Configure Notification ==========
+        modelBuilder.Entity<Notification>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Id)
+                .UseIdentityColumn();
+
+            entity.Property(e => e.Title)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(e => e.Message)
+                .IsRequired()
+                .HasMaxLength(1000);
+
+            entity.Property(e => e.Type)
+                .HasConversion<int>();
+
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            entity.Property(e => e.ActionUrl)
+                .HasMaxLength(500);
+
+            entity.Property(e => e.UserId)
+                .IsRequired();
+
+            // Relationship with User
+            entity.HasOne(n => n.User)
+                .WithMany(u => u.Notifications)
+                .HasForeignKey(n => n.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Relationship with Ticket (optional)
+            entity.HasOne(n => n.Ticket)
+                .WithMany(t => t.Notifications)
+                .HasForeignKey(n => n.TicketId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasIndex(e => e.UserId);
+            entity.HasIndex(e => e.IsRead);
+            entity.HasIndex(e => e.CreatedDate);
+        });
+
+        // ========== Configure TicketRating ==========
+        modelBuilder.Entity<TicketRating>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Id)
+                .UseIdentityColumn();
+
+            entity.Property(e => e.Rating)
+                .IsRequired();
+
+            entity.Property(e => e.Comment)
+                .HasMaxLength(1000);
+
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            entity.Property(e => e.UserId)
+                .IsRequired();
+
+            // Relationship with Ticket (one-to-one)
+            entity.HasOne(r => r.Ticket)
+                .WithOne(t => t.Rating)
+                .HasForeignKey<TicketRating>(r => r.TicketId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Relationship with User (who gave rating)
+            entity.HasOne(r => r.User)
+                .WithMany(u => u.GivenRatings)
+                .HasForeignKey(r => r.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Relationship with Support Agent (who received rating)
+            entity.HasOne(r => r.SupportAgent)
+                .WithMany(u => u.ReceivedRatings)
+                .HasForeignKey(r => r.SupportAgentId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            entity.HasIndex(e => e.TicketId)
+                .IsUnique(); // One rating per ticket
+
+            entity.HasIndex(e => e.SupportAgentId);
+        });
+
+        // ========== Seed Data ==========
+        
+        // Seed initial categories
         modelBuilder.Entity<TicketCategory>().HasData(
             new TicketCategory
             {

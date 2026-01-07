@@ -161,6 +161,14 @@
                                 <i class="bi bi-plus-circle"></i> @SharedLocalizer["CreateTicket"]
                             </a>
                         </li>
+                        @if (User.IsInRole("Admin") || User.IsInRole("MabatSupport"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-warning" asp-page="/Admin/Index">
+                                    <i class="bi bi-speedometer2"></i> @SharedLocalizer["AdminPanel"]
+                                </a>
+                            </li>
+                        }
                     </ul>
                     
                     <!-- Login partial -->

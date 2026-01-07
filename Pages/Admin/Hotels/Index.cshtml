@@ -1,0 +1,228 @@
+@page
+@model MabatSupportSystem.Pages.Admin.Hotels.IndexModel
+@inject IStringLocalizer<SharedResource> Localizer
+@{
+    ViewData["Title"] = Localizer["HotelsManagement"];
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="fw-bold text-info mb-1">
+                <i class="bi bi-building me-2"></i>@Localizer["HotelsManagement"]
+            </h1>
+            <p class="text-muted mb-0">@Localizer["HotelsManagement_Subtitle"]</p>
+        </div>
+        <a asp-page="Create" class="btn btn-info shadow-sm px-4 rounded-pill text-white">
+            <i class="bi bi-plus-lg me-2"></i>@Localizer["AddHotel"]
+        </a>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-info bg-opacity-10 p-3 me-3">
+                            <i class="bi bi-building text-info fs-4"></i>
+                        </div>
+                        <div>
+                            <h3 class="fw-bold mb-0">@Model.Hotels.Count()</h3>
+                            <small class="text-muted">@Localizer["TotalHotelsCount"]</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-success bg-opacity-10 p-3 me-3">
+                            <i class="bi bi-check-circle text-success fs-4"></i>
+                        </div>
+                        <div>
+                            <h3 class="fw-bold mb-0">@Model.Hotels.Count(h => h.IsActive)</h3>
+                            <small class="text-muted">@Localizer["ActiveHotels"]</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-secondary bg-opacity-10 p-3 me-3">
+                            <i class="bi bi-x-circle text-secondary fs-4"></i>
+                        </div>
+                        <div>
+                            <h3 class="fw-bold mb-0">@Model.Hotels.Count(h => !h.IsActive)</h3>
+                            <small class="text-muted">@Localizer["InactiveHotels"]</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hotels Grid -->
+    @if (!Model.Hotels.Any())
+    {
+        <div class="card border-0 shadow-sm">
+            <div class="card-body text-center py-5">
+                <i class="bi bi-building display-1 text-muted opacity-25 d-block mb-3"></i>
+                <h4 class="text-muted">@Localizer["NoHotels"]</h4>
+                <p class="text-muted">@Localizer["StartAddHotel"]</p>
+                <a asp-page="Create" class="btn btn-info">
+                    <i class="bi bi-plus-lg me-2"></i>@Localizer["AddHotel"]
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var hotel in Model.Hotels)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="rounded-circle bg-info bg-opacity-10 text-info d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                        <i class="bi bi-building fs-4"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="fw-bold mb-0">@hotel.Name</h5>
+                                        @if (!string.IsNullOrEmpty(hotel.NameEn))
+                                        {
+                                            <small class="text-muted">@hotel.NameEn</small>
+                                        }
+                                    </div>
+                                </div>
+                                @if (hotel.IsActive)
+                                {
+                                    <span class="badge bg-success">@Localizer["Active"]</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">@Localizer["Inactive"]</span>
+                                }
+                            </div>
+                            
+                            <div class="mb-3">
+                                @if (!string.IsNullOrEmpty(hotel.City))
+                                {
+                                    <p class="mb-1"><i class="bi bi-geo-alt text-muted me-2"></i>@hotel.City</p>
+                                }
+                                @if (!string.IsNullOrEmpty(hotel.Phone))
+                                {
+                                    <p class="mb-1"><i class="bi bi-telephone text-muted me-2"></i>@hotel.Phone</p>
+                                }
+                                @if (!string.IsNullOrEmpty(hotel.Email))
+                                {
+                                    <p class="mb-1"><i class="bi bi-envelope text-muted me-2"></i>@hotel.Email</p>
+                                }
+                            </div>
+
+                            @if (hotel.Owner != null)
+                            {
+                                <div class="bg-light rounded p-2 mb-3">
+                                    <small class="text-muted d-block">@Localizer["HotelOwner"]</small>
+                                    <span class="fw-medium">@hotel.Owner.FullName</span>
+                                </div>
+                            }
+
+                            <!-- موظفي الدعم -->
+                            @{
+                                // استبعاد مالك الفندق من قائمة موظفي الدعم
+                                var supportStaffOnly = hotel.SupportTeam.Where(s => s.Id != hotel.OwnerId).ToList();
+                            }
+                            <div class="bg-light rounded p-2 mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <small class="text-muted">
+                                        <i class="bi bi-people me-1"></i>@Localizer["SupportStaff"]
+                                    </small>
+                                    <span class="badge bg-info">@supportStaffOnly.Count</span>
+                                </div>
+                                @if (supportStaffOnly.Any())
+                                {
+                                    @foreach (var staff in supportStaffOnly.Take(3))
+                                    {
+                                        <div class="d-flex justify-content-between align-items-center py-1 border-bottom">
+                                            <span class="small">@(staff.FullName ?? staff.Email)</span>
+                                            <a asp-page="/Admin/Users/Edit" asp-route-id="@staff.Id" 
+                                               class="btn btn-sm btn-link p-0" title="@Localizer["Edit"]">
+                                                <i class="bi bi-pencil-square text-primary"></i>
+                                            </a>
+                                        </div>
+                                    }
+                                    @if (supportStaffOnly.Count > 3)
+                                    {
+                                        <small class="text-muted">+ @(supportStaffOnly.Count - 3) @Localizer["More"]</small>
+                                    }
+                                }
+                                else
+                                {
+                                    <small class="text-muted fst-italic">@Localizer["NoSupportStaff"]</small>
+                                }
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center border-top pt-3">
+                                <small class="text-muted">
+                                    @Localizer["CreatedDate"]: @hotel.CreatedDate.ToString("yyyy-MM-dd")
+                                </small>
+                                <div class="btn-group">
+                                    <a asp-page="Edit" asp-route-id="@hotel.Id" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-outline-danger"
+                                            data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                            data-hotel-id="@hotel.Id" data-hotel-name="@hotel.Name">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">@Localizer["ConfirmDelete"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center py-4">
+                <i class="bi bi-exclamation-triangle text-warning display-3 d-block mb-3"></i>
+                <p>@Localizer["ConfirmDeleteHotel"] <strong id="deleteHotelName"></strong>?</p>
+                <small class="text-muted">@Localizer["DeleteHotelWarning"]</small>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                <form method="post" asp-page-handler="Delete" id="deleteForm">
+                    <input type="hidden" name="id" id="deleteHotelId" />
+                    <button type="submit" class="btn btn-danger">@Localizer["Delete"]</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('deleteModal').addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            document.getElementById('deleteHotelId').value = button.getAttribute('data-hotel-id');
+            document.getElementById('deleteHotelName').textContent = button.getAttribute('data-hotel-name');
+        });
+    </script>
+}
